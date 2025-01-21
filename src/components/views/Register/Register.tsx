@@ -40,7 +40,7 @@ const Register = () => {
             />
             <Input
               type="text"
-              label="Nama Belakang"
+              label="Nama Pengguna"
               autoComplete="off"
               variant="bordered"
             />
