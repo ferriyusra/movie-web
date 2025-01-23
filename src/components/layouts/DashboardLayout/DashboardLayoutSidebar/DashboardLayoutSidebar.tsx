@@ -4,6 +4,7 @@ import { CiLogout } from "react-icons/ci";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { cn } from "@/utils/cn";
+import { JSX } from "react";
 
 interface SidebarItem {
   key: string;
