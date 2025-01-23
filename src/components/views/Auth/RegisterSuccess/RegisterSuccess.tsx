@@ -26,7 +26,7 @@ const RegisterSuccess = () => {
         <p className="text-xl font-bold text-default-500">
           Cek kotak masuk email kamu untuk mengaktifkan akun
         </p>
-        <Button className="mt-4 w-fit" variant="bordered" color="danger" onClick={() => router.push('/')}>Kembali ke beranda</Button>
+        <Button className="mt-4 w-fit" variant="bordered" color="danger" onPress={() => router.push('/')}>Kembali ke beranda</Button>
       </div>
     </div >
   )
