@@ -1,18 +1,18 @@
 const COLUMN_LISTS_CATEGORY = [
   {
-    name: "ICON",
+    name: "IKON",
     uid: "icon",
   },
   {
-    name: "NAME",
+    name: "NAMA",
     uid: "name",
   },
   {
-    name: "DESCRIPTION",
+    name: "DESKRIPSI",
     uid: "description",
   },
   {
-    name: "ACTION",
+    name: "AKSI",
     uid: "actions",
   },
 ]
