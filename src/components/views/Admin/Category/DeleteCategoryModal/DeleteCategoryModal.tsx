@@ -1,8 +1,5 @@
-import InputFile from "@/components/ui/InputFile";
-import { Modal, ModalContent, ModalHeader, ModalBody, Textarea, ModalFooter, Button, Spinner } from "@nextui-org/react";
-import { Input } from "postcss";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Spinner } from "@nextui-org/react";
 import { Dispatch, SetStateAction, useEffect } from "react";
-import { Controller } from "react-hook-form";
 import useDeleteCategoryModal from "./useDeleteCategoryModal";
 
 interface PropTypes {
