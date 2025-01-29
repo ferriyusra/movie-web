@@ -65,8 +65,7 @@ const AddCategoryModal = (props: PropTypes) => {
                     isInvalid={errors.name !== undefined}
                     errorMessage={errors.name?.message}
                     className="mb-2"
-                  >
-                  </Input>
+                  />
                 )}
               />
               <Controller
@@ -80,8 +79,7 @@ const AddCategoryModal = (props: PropTypes) => {
                     isInvalid={errors.description !== undefined}
                     errorMessage={errors.description?.message}
                     className="mb-2"
-                  >
-                  </Textarea>
+                  />
                 )}
               />
               <p className="text-sm font-bold">Ikon</p>

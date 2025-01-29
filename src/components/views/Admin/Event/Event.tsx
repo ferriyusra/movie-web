@@ -10,6 +10,7 @@ import { COLUMN_LISTS_EVENT } from "./Event.constants";
 import useEvent from "./useEvent";
 import useChangeUrl from "@/hooks/useChangeUrl";
 import DropdownAction from "@/components/commons/DropdownAction";
+import AddEventModal from "./AddEventModal";
 
 const Event = () => {
   const { isReady, push, query } = useRouter();
@@ -80,12 +81,16 @@ const Event = () => {
           columns={COLUMN_LISTS_EVENT}
           emptyContent="Kategori kosong"
           onClickButtonTopContent={addEventModal.onOpen}
-          buttonTopContentLabel="Tambah Kategori"
+          buttonTopContentLabel="Tambah Acara"
           renderCell={renderCell}
           totalPages={dataEvents?.pagination.totalPages}
           data={dataEvents?.data || []}
         />
       )}
+      <AddEventModal
+        refetchEvents={refetchEvents}
+        {...addEventModal}
+      />
     </section>
   );
 };
