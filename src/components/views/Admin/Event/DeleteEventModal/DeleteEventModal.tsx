@@ -37,7 +37,6 @@ const DeleteEventModal = (props: PropTypes) => {
 
   useEffect(() => {
     if (isSuccessMutateDeleteEvent) {
-      console.log('first')
       onClose();
       refetchEvents();
     }
