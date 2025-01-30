@@ -85,7 +85,7 @@ const AddEventModal = (props: PropTypes) => {
                     <Input
                       {...field}
                       autoFocus
-                      label="Nama Kategori"
+                      label="Nama Acara"
                       variant="bordered"
                       type="text"
                       isInvalid={errors.name !== undefined}
@@ -115,6 +115,7 @@ const AddEventModal = (props: PropTypes) => {
                       {...field}
                       defaultItems={dataCategory?.data.data || []}
                       label="Kategori Acara"
+                      labelPlacement="outside"
                       variant="bordered"
                       isInvalid={errors.category !== undefined}
                       errorMessage={errors.category?.message}
@@ -136,10 +137,10 @@ const AddEventModal = (props: PropTypes) => {
                     <DatePicker
                       {...field}
                       label="Tanggal Mulai Acara"
+                      labelPlacement="outside"
                       variant="bordered"
                       isInvalid={errors.startDate !== undefined}
                       errorMessage={errors.startDate?.message}
-                      defaultValue={now(getLocalTimeZone())}
                       hideTimeZone
                       showMonthAndYearPickers
                     />
@@ -152,10 +153,10 @@ const AddEventModal = (props: PropTypes) => {
                     <DatePicker
                       {...field}
                       label="Tanggal Akhir Acara"
+                      labelPlacement="outside"
                       variant="bordered"
                       isInvalid={errors.endDate !== undefined}
                       errorMessage={errors.endDate?.message}
-                      defaultValue={now(getLocalTimeZone())}
                       hideTimeZone
                       showMonthAndYearPickers
                     />
@@ -174,10 +175,10 @@ const AddEventModal = (props: PropTypes) => {
                       disallowEmptySelection
                     >
                       <SelectItem key="true" value="true">
-                        Publikasi
+                        Publish
                       </SelectItem>
                       <SelectItem key="false" value="false">
-                        Tidak Publikasi
+                        Draft
                       </SelectItem>
                     </Select>
                   )}
@@ -188,7 +189,7 @@ const AddEventModal = (props: PropTypes) => {
                   render={({ field }) => (
                     <Select
                       {...field}
-                      label="Status Publikasi"
+                      label="Status Unggulan"
                       variant="bordered"
                       isInvalid={errors.isFeatured !== undefined}
                       errorMessage={errors.isFeatured?.message}

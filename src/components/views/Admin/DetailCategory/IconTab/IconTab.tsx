@@ -48,15 +48,13 @@ const IconTab = (props: PropTypes) => {
               Ikon saat ini
             </p>
             <Skeleton
-              className="aspect-square rounded-lg"
+              className="aspect-video rounded-lg"
               isLoaded={!!currentIcon}
             >
               <Image src={currentIcon} alt="icon" fill className="!relative" />
             </Skeleton>
           </div>
           <div className="flex flex-col gap-2">
-            <p className="text-sm font-bold">Informasi</p>
-            <p className="text-sm font-bold">Ikon</p>
             <Controller
               name="icon"
               control={controlUpdateIcon}

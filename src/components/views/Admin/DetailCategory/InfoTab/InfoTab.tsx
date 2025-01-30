@@ -52,15 +52,15 @@ const InfoTab = (props: PropTypes) => {
           className="flex flex-col gap-4"
           onSubmit={handleSubmitUpdateInfo(onUpdate)}
         >
+          <p className="text-sm font-bold">Informasi</p>
           <Skeleton isLoaded={!!dataCategory?.name} className="rounded-lg">
-            <p className="text-sm font-bold">Informasi</p>
             <Controller
               name="name"
               control={controlUpdateInfo}
               render={({ field }) => (
                 <Input
                   {...field}
-                  label="Nama Kategori"
+                  label="Nama Acara"
                   variant="bordered"
                   type="text"
                   isInvalid={errorsUpdateInfo.name !== undefined}
@@ -70,7 +70,6 @@ const InfoTab = (props: PropTypes) => {
                 ></Input>
               )}
             />
-            <p className="text-sm font-bold">Ikon</p>
           </Skeleton>
           <Skeleton
             isLoaded={!!dataCategory?.description}

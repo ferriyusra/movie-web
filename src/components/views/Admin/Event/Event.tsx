@@ -82,7 +82,7 @@ const Event = () => {
         <DataTable
           isLoading={isLoadingEvents || isRefetchingEvents}
           columns={COLUMN_LISTS_EVENT}
-          emptyContent="Kategori kosong"
+          emptyContent="Acara kosong"
           onClickButtonTopContent={addEventModal.onOpen}
           buttonTopContentLabel="Tambah Acara"
           renderCell={renderCell}
