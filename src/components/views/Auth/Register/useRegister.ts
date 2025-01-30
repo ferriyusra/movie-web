@@ -18,7 +18,27 @@ const registerSchema = yup.object().shape({
   password: yup
     .string()
     .min(8, "Kata sandi minimal 8 karakter")
-    .required("Mohon masukkan kata sandi"),
+    .required("Mohon masukkan kata sandi")
+    .test(
+      "at-least-one-uppercase-letter",
+      "Mengandung setidaknya satu huruf kapital",
+      (value) => {
+        if (!value) {
+          return false;
+        }
+
+        const regex = /^(?=.*[A-Z])/;
+        return regex.test(value);
+      },
+    )
+    .test("at-least-one-number", "Berisi setidaknya satu nomor", (value) => {
+      if (!value) {
+        return false;
+      }
+
+      const regex = /^(?=.*\d)/;
+      return regex.test(value);
+    }),
   confirmPassword: yup
     .string()
     .oneOf([yup.ref("password"), ""], "Kata sandi tidak sama")
@@ -31,7 +51,7 @@ const useRegister = () => {
     password: false,
     confirmPassword: false,
   });
-    const { setToaster } = useContext(ToasterContext);
+  const { setToaster } = useContext(ToasterContext);
 
   const handleVisiblePassword = (key: "password" | "confirmPassword") => {
     setVisiblePassword({
@@ -57,16 +77,16 @@ const useRegister = () => {
 
   const { mutate: mutateRegister, isPending: isPendingRegister } = useMutation({
     mutationFn: registerService,
-    
+
     onError: (error) => {
-     setToaster({
+      setToaster({
         type: "error",
         message: error.message,
       });
     },
     onSuccess: () => {
       reset();
-       setToaster({
+      setToaster({
         type: "success",
         message: "Daftar Berhasil!",
       });
