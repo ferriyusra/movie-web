@@ -11,6 +11,7 @@ import * as yup from "yup";
 
 const schemaUpdateLocation = yup.object().shape({
   isOnline: yup.string().required("Mohon masukkan online atau offline acara"),
+  address: yup.string().required("Mohon pilih alamat acara"),
   region: yup.string().required("Mohon pilih wilayah acara"),
   latitude: yup.string().required("Mohon pilih titik latitude koordinat acara"),
   longitude: yup

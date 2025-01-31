@@ -1,12 +1,12 @@
 import { DateValue } from "@nextui-org/react";
 
 interface IRegions {
-  id: string
-  name: string
+  id: string;
+  name: string;
 }
 
 interface IEvent {
-  _id?: string
+  _id?: string;
   name?: string;
   slug?: string;
   category?: string;
@@ -17,19 +17,20 @@ interface IEvent {
   startDate?: string;
   endDate?: string;
   location?: {
+    address: string;
     region: string;
     coordinates: number[];
-  }
+  };
   banner?: string | FileList;
 }
 
 interface IEventForm extends IEvent {
+  address?: string;
   region?: string;
   startDate?: DateValue;
   endDate?: DateValue;
   latitude?: string;
   longitude?: string;
-
 }
 
-export type {IEvent, IRegions, IEventForm}
+export type { IEvent, IRegions, IEventForm };

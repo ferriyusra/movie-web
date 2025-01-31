@@ -1,25 +1,24 @@
-
 import { parseAbsoluteToLocal } from "@internationalized/date";
-import { DateValue } from "@nextui-org/react"
+import { DateValue } from "@nextui-org/react";
 
-const standardTime = (time: number) => {
-  if(time < 10) {
-    return `0${time}`
+const standardDate = (date: number) => {
+  if (date < 10) {
+    return `0${date}`;
   } else {
-    return time;
+    return date;
   }
-}
+};
 
 const toDateStandard = (date: DateValue) => {
-  const year = date.year
-  const month = date.month
-  const day = date.day
+  const year = date.year;
+  const month = date.month;
+  const day = date.day;
 
-  const hour = "hour" in date ? date.hour : 0
-  const minute = "minute" in date ? date.minute : 0
-  const second = "second" in date ? date.second : 0
+  const hour = "hour" in date ? date.hour : 0;
+  const minute = "minute" in date ? date.minute : 0;
+  const second = "second" in date ? date.second : 0;
 
-  const result = `${year}-${standardTime(month)}-${day} ${standardTime(hour)}:${standardTime(minute)}:${standardTime(second)}`
+  const result = `${standardDate(year)}-${standardDate(month)}-${standardDate(day)} ${standardDate(hour)}:${standardDate(minute)}:${standardDate(second)}`;
   return result;
 };
 
@@ -27,6 +26,6 @@ const toInputDate = (date: string) => {
   const formattedDate = parseAbsoluteToLocal(`${date.replace(" ", "T")}+07:00`);
 
   return formattedDate;
-}
+};
 
-export {toDateStandard, toInputDate}
+export { toDateStandard, toInputDate };

@@ -12,6 +12,10 @@ const COLUMN_LISTS_EVENT = [
     uid: "startDate",
   },
   {
+    name: "TANGGAL AKHIR",
+    uid: "endDate",
+  },
+  {
     name: "Status",
     uid: "isPublish",
   },

@@ -37,6 +37,7 @@ const schema = yup.object().shape({
   banner: yup
     .mixed<FileList | string>()
     .required("Mohon masukkan foto sampul acara"),
+  address: yup.string().required("Mohon pilih alamat acara"),
 });
 
 const useAddEventModal = () => {
@@ -138,12 +139,10 @@ const useAddEventModal = () => {
   const handleAddEvent = (data: IEventForm) => {
     const payload = {
       ...data,
-      isFeatured: data.isFeatured === "true" ? true : false,
-      isPublish: data.isPublish === "true" ? true : false,
-      isOnline: data.isOnline === "true" ? true : false,
       startDate: data.startDate ? toDateStandard(data.startDate) : '',
       endDate: data.endDate ? toDateStandard(data.endDate) : '',
       location: {
+        address: `${data.address}`,
         region: `${data.region}`,
         coordinates: [Number(data.latitude), Number(data.longitude)],
       },

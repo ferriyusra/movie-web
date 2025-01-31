@@ -207,10 +207,10 @@ const InfoTab = (props: PropTypes) => {
                   ]}
                 >
                   <SelectItem key="true" value="true">
-                    Publish
+                    Ya
                   </SelectItem>
                   <SelectItem key="false" value="false">
-                    Draft
+                    Tidak
                   </SelectItem>
                 </Select>
               )}
