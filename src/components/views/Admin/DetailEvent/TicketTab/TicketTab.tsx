@@ -8,9 +8,10 @@ import {
   Button,
   useDisclosure,
 } from "@nextui-org/react";
-import { Key, ReactNode, useCallback } from "react";
+import { Fragment, Key, ReactNode, useCallback } from "react";
 import { COLUMN_LISTS_TICKET } from "./TicketTab.constants";
 import useTicketTab from "./useTicketTab";
+import AddTicketModal from "./AddTicketModal";
 
 const TicketTab = () => {
   const { dataTicket, refetchTicket, isPendingTicket, isRefetchingTicket } =
@@ -45,28 +46,31 @@ const TicketTab = () => {
   );
 
   return (
-    <Card className="w-full p-4">
-      <CardHeader className="items-center justify-between">
-        <div className="fllex flex-col items-center">
-          <h1 className="w-full text-xl font-bold">Informasi Tiket</h1>
-          <p className="w-full text-small text-default-400">Atur tiket</p>
-        </div>
-        <Button color="danger">Tambah Tiket</Button>
-      </CardHeader>
-      <CardBody className="pt-0">
-        <DataTable
-          isLoading={isPendingTicket || isRefetchingTicket}
-          columns={COLUMN_LISTS_TICKET}
-          emptyContent="Tiket kosong"
-          onClickButtonTopContent={addTicketModal.onOpen}
-          renderCell={renderCell}
-          totalPages={1}
-          data={dataTicket || []}
-          showLimit={false}
-          showSearch={false}
-        />
-      </CardBody>
-    </Card>
+    <Fragment>
+      <Card className="w-full p-4">
+        <CardHeader className="items-center justify-between">
+          <div className="fllex flex-col items-center">
+            <h1 className="w-full text-xl font-bold">Informasi Tiket</h1>
+            <p className="w-full text-small text-default-400">Atur tiket</p>
+          </div>
+          <Button color="danger" onPress={addTicketModal.onOpen}>Tambah Tiket</Button>
+        </CardHeader>
+        <CardBody className="pt-0">
+          <DataTable
+            isLoading={isPendingTicket || isRefetchingTicket}
+            columns={COLUMN_LISTS_TICKET}
+            emptyContent="Tiket kosong"
+            onClickButtonTopContent={addTicketModal.onOpen}
+            renderCell={renderCell}
+            totalPages={1}
+            data={dataTicket || []}
+            showLimit={false}
+            showSearch={false}
+          />
+        </CardBody>
+      </Card>
+      <AddTicketModal {...addTicketModal} refetchTicket={refetchTicket} />
+    </Fragment>
   );
 };
 
