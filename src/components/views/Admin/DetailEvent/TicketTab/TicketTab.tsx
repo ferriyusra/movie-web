@@ -12,6 +12,9 @@ import { Fragment, Key, ReactNode, useCallback } from "react";
 import { COLUMN_LISTS_TICKET } from "./TicketTab.constants";
 import useTicketTab from "./useTicketTab";
 import AddTicketModal from "./AddTicketModal";
+import { useState } from "react";
+import { ITicket } from "@/types/Ticket";
+import DeleteTicketModal from "./DeleteTicketModal";
 
 const TicketTab = () => {
   const { dataTicket, refetchTicket, isPendingTicket, isRefetchingTicket } =
@@ -19,6 +22,8 @@ const TicketTab = () => {
   const addTicketModal = useDisclosure();
   const deleteTicketModal = useDisclosure();
   const updateTicketModal = useDisclosure();
+
+  const [selectedDataTicket, setSelectedDataTicket] = useState<ITicket | null>(null)
 
   const renderCell = useCallback(
     (ticket: Record<string, unknown>, columnKey: Key) => {
@@ -34,6 +39,7 @@ const TicketTab = () => {
                 updateTicketModal.onOpen();
               }}
               onPressButtonDelete={() => {
+                setSelectedDataTicket(ticket as ITicket)
                 deleteTicketModal.onOpen();
               }}
             />
@@ -70,6 +76,12 @@ const TicketTab = () => {
         </CardBody>
       </Card>
       <AddTicketModal {...addTicketModal} refetchTicket={refetchTicket} />
+      <DeleteTicketModal
+        refetchTicket={refetchTicket}
+        selectedDataTicket={selectedDataTicket}
+        setSelectedDataTicket={setSelectedDataTicket}
+        {...deleteTicketModal}
+      />
     </Fragment>
   );
 };
