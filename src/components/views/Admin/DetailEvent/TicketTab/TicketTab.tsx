@@ -15,6 +15,7 @@ import AddTicketModal from "./AddTicketModal";
 import { useState } from "react";
 import { ITicket } from "@/types/Ticket";
 import DeleteTicketModal from "./DeleteTicketModal";
+import UpdateTicketModal from "./UpdateTicketModal";
 
 const TicketTab = () => {
   const { dataTicket, refetchTicket, isPendingTicket, isRefetchingTicket } =
@@ -36,6 +37,7 @@ const TicketTab = () => {
           return (
             <DropdownAction
               onPressButtonDetail={() => {
+                setSelectedDataTicket(ticket as ITicket)
                 updateTicketModal.onOpen();
               }}
               onPressButtonDelete={() => {
@@ -76,6 +78,12 @@ const TicketTab = () => {
         </CardBody>
       </Card>
       <AddTicketModal {...addTicketModal} refetchTicket={refetchTicket} />
+      <UpdateTicketModal
+        refetchTicket={refetchTicket}
+        selectedDataTicket={selectedDataTicket}
+        setSelectedDataTicket={setSelectedDataTicket}
+        {...updateTicketModal}
+      />
       <DeleteTicketModal
         refetchTicket={refetchTicket}
         selectedDataTicket={selectedDataTicket}
