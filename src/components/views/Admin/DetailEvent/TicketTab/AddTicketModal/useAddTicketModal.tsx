@@ -9,8 +9,8 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 const schema = yup.object().shape({
-  price: yup.string().min(1, "Harga tiket minimal 1").required("Mohon masukkan harga tiket"),
-  quantity: yup.string().min(1, "Stok tiket minimal 1").required("Mohon masukkan harga tiket"),
+  price: yup.string().required("Mohon masukkan harga tiket"),
+  quantity: yup.string().required("Mohon masukkan harga tiket"),
   name: yup.string().required("Mohon masukkan nama tiket"),
   description: yup.string().required("Mohon masukkan deskripsi tiket"),
 });
