@@ -1,5 +1,5 @@
 import DashboardLayout from "@/components/layouts/DashboardLayout";
-import DetailCategory from "@/components/views/Admin/DetailCategory";
+import DetailBanner from "@/components/views/Admin/DetailBanner";
 
 const AdminDetailBannerPage = () => {
   return (
@@ -7,7 +7,7 @@ const AdminDetailBannerPage = () => {
       title="Detail spanduk"
       description="Atur spanduk yang tersedia."
       type="admin">
-      <DetailCategory />
+      <DetailBanner />
     </DashboardLayout>
   )
 }

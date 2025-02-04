@@ -6,7 +6,7 @@ const bannerServices = {
   getBanners: (params?: string) => instance.get(`${endpoint.BANNER}?${params}`),
   addBanner: (payload: IBanner) => instance.post(`${endpoint.BANNER}`, payload),
   deleteBanner: (id: string) => instance.delete(`${endpoint.BANNER}/${id}`),
-  detailBanner: (id: string) => instance.get(`${endpoint.BANNER}/${id}`),
+  getBannerById: (id: string) => instance.get(`${endpoint.BANNER}/${id}`),
   updateBanner: (id: string, payload: IBanner) =>
     instance.put(`${endpoint.BANNER}/${id}`, payload),
 };
