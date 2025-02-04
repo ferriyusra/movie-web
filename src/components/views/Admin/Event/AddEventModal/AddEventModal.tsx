@@ -49,6 +49,7 @@ const AddEventModal = (props: PropTypes) => {
     dataCategory,
     dataRegion,
     searchRegion,
+    setValue,
   } = useAddEventModal();
 
   useEffect(() => {
@@ -62,6 +63,11 @@ const AddEventModal = (props: PropTypes) => {
     isPendingMutateAddEvent ||
     isPendingMutateUploadFile ||
     isPendingMutateDeleteFile;
+
+  useEffect(() => {
+    setValue("startDate", now(getLocalTimeZone()));
+    setValue("endDate", now(getLocalTimeZone()));
+  }, [onOpenChange])
 
   return (
     <Modal
@@ -205,6 +211,23 @@ const AddEventModal = (props: PropTypes) => {
                   )}
                 />
                 <Controller
+                  control={control}
+                  name="description"
+                  render={({ field }) => (
+                    <Textarea
+                      {...field}
+                      label="Deskripsi Acara"
+                      variant="bordered"
+                      isInvalid={errors.description !== undefined}
+                      errorMessage={errors.description?.message}
+                    ></Textarea>
+                  )}
+                />
+
+              </div>
+              <p className="text-sm font-bold">Lokasi Acara</p>
+              <div className="mb-4 flex flex-col gap-4">
+                <Controller
                   name="isOnline"
                   control={control}
                   render={({ field }) => (
@@ -225,23 +248,6 @@ const AddEventModal = (props: PropTypes) => {
                     </Select>
                   )}
                 />
-                <Controller
-                  control={control}
-                  name="description"
-                  render={({ field }) => (
-                    <Textarea
-                      {...field}
-                      label="Deskripsi Acara"
-                      variant="bordered"
-                      isInvalid={errors.description !== undefined}
-                      errorMessage={errors.description?.message}
-                    ></Textarea>
-                  )}
-                />
-
-              </div>
-              <p className="text-sm font-bold">Lokasi Acara</p>
-              <div className="mb-4 flex flex-col gap-4">
                 <Controller
                   name="region"
                   control={control}

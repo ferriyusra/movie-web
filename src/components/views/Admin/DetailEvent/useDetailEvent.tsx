@@ -5,6 +5,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { toDateStandard } from "@/utils/date";
+import { DateValue } from "@nextui-org/react";
 
 const useDetailEvent = () => {
   const { query, isReady } = useRouter();
@@ -51,15 +52,15 @@ const useDetailEvent = () => {
   const handleUpdateInfo = (data: IEventForm) => {
     const payload = {
       ...data,
-      startDate: data.startDate ? toDateStandard(data.startDate) : "",
-      endDate: data.endDate ? toDateStandard(data.endDate) : "",
-      banner: data.banner,
+      startDate: toDateStandard(data.startDate as DateValue),
+      endDate: toDateStandard(data.endDate as DateValue)
     };
     mutateUpdateEvent(payload);
   };
 
   const handleUpdateLocation = (data: IEventForm) => {
     const payload = {
+      ...data,
       location: {
         address: `${data.address}`,
         region: `${data.region}`,
