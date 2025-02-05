@@ -37,7 +37,6 @@ const LandingPageLayoutNavbar = () => {
       isBlurred={false}
       shouldHideOnScroll
       maxWidth="full"
-      className="max-w-screen-3xl 3xl:container"
     >
       <div className="flex items-center gap-8">
         <NavbarBrand as={Link} href="/">
@@ -178,6 +177,9 @@ const LandingPageLayoutNavbar = () => {
           )}
         </NavbarMenu>
       </NavbarContent>
+      {/* <div className="">
+
+      </div> */}
     </Navbar>
   );
 };
