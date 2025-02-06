@@ -1,4 +1,3 @@
-import { cn } from "@/utils/cn";
 import {
   Avatar,
   Button,
@@ -17,31 +16,26 @@ import {
   NavbarMenuToggle,
 } from "@nextui-org/react";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import Link from "next/link";
 import { BUTTON_ITEMS, NAV_ITEMS } from "../LandingPageLayout.constants";
+import { cn } from "@/utils/cn";
+import { useRouter } from "next/router";
 import { CiSearch } from "react-icons/ci";
 import { signOut, useSession } from "next-auth/react";
 import useLandingPageLayoutNavbar from "./useLandingPageLayoutNavbar";
 import { Fragment } from "react";
-import Link from "next/link";
 
 const LandingPageLayoutNavbar = () => {
   const router = useRouter();
   const session = useSession();
-
   const { dataProfile } = useLandingPageLayoutNavbar();
 
   return (
-    <Navbar
-      isBordered
-      isBlurred={false}
-      shouldHideOnScroll
-      maxWidth="full"
-    >
+    <Navbar maxWidth="full" isBordered isBlurred={false} shouldHideOnScroll>
       <div className="flex items-center gap-8">
         <NavbarBrand as={Link} href="/">
           <Image
-            src="images/general/logo.svg"
+            src="/images/general/logo.svg"
             alt="logo"
             width={100}
             height={50}
@@ -65,14 +59,15 @@ const LandingPageLayoutNavbar = () => {
       </div>
       <NavbarContent justify="end">
         <NavbarMenuToggle className="lg:hidden" />
+
         <NavbarItem className="hidden lg:relative lg:flex">
           <Input
             isClearable
             className="w-[300px]"
-            placeholder="Cari Acara..."
+            placeholder="Search Event"
             startContent={<CiSearch />}
-            onClear={() => console.log("Clear")}
-            onChange={() => console.log("Clear")}
+            onClear={() => { }}
+            onChange={() => { }}
           />
         </NavbarItem>
         {session.status === "authenticated" ? (
@@ -120,13 +115,14 @@ const LandingPageLayoutNavbar = () => {
             ))}
           </div>
         )}
+
         <NavbarMenu className="gap-4">
           {NAV_ITEMS.map((item) => (
             <NavbarMenuItem
+              key={`nav-${item.label}`}
               className={cn("font-medium text-default-700 hover:text-danger", {
                 "font-bold text-danger": router.pathname === item.href,
               })}
-              key={`nav-${item.label}`}
             >
               <Link href={item.href}>{item.label}</Link>
             </NavbarMenuItem>
@@ -168,6 +164,7 @@ const LandingPageLayoutNavbar = () => {
                     href={item.href}
                     fullWidth
                     variant={item.variant as ButtonProps["variant"]}
+                    size="md"
                   >
                     {item.label}
                   </Button>
@@ -177,9 +174,6 @@ const LandingPageLayoutNavbar = () => {
           )}
         </NavbarMenu>
       </NavbarContent>
-      {/* <div className="">
-
-      </div> */}
     </Navbar>
   );
 };
