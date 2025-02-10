@@ -26,6 +26,7 @@ const Home = () => {
         title="Acara Unggulan"
         events={dataFeaturedEvents?.data}
         isLoading={isLoadingFeaturedEvents}
+        urlMore="/event?isFeatured=true"
       />
       <HomeCategoryList
         categories={dataCategories?.data}

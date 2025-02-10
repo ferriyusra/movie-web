@@ -14,9 +14,9 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
+  Link,
 } from "@nextui-org/react";
 import Image from "next/image";
-import Link from "next/link";
 import { BUTTON_ITEMS, NAV_ITEMS } from "../LandingPageLayout.constants";
 import { cn } from "@/utils/cn";
 import { useRouter } from "next/router";
@@ -120,11 +120,11 @@ const LandingPageLayoutNavbar = () => {
           {NAV_ITEMS.map((item) => (
             <NavbarMenuItem
               key={`nav-${item.label}`}
-              className={cn("font-medium text-default-700 hover:text-danger", {
-                "font-bold text-danger": router.pathname === item.href,
-              })}
             >
-              <Link href={item.href}>{item.label}</Link>
+              <Link href={item.href}
+                className={cn("font-medium text-default-700 hover:text-danger", {
+                  "font-bold text-danger": router.pathname === item.href,
+                })}>{item.label}</Link>
             </NavbarMenuItem>
           ))}
           {session.status === "authenticated" ? (

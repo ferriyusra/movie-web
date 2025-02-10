@@ -6,15 +6,16 @@ interface PropTypes {
   title: string;
   events: IEvent[];
   isLoading: boolean;
+  urlMore: string;
 }
 
 const HomeEventList = (props: PropTypes) => {
-  const { title, events, isLoading } = props;
+  const { title, events, isLoading, urlMore = "/event" } = props;
   return (
     <section className="mb-16">
       <div className="mb-2 flex items-center justify-between px-6 lg:px-0">
         <h2 className="text-2xl font-bold text-danger">{title}</h2>
-        <Link href="/event" className="font-semibold text-foreground-500">
+        <Link href={urlMore} className="font-semibold text-foreground-500">
           Lihat Semua
         </Link>
       </div>
