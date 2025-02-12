@@ -4,7 +4,7 @@ const SIDEBAR_MEMBER = [
   {
     key: "dashboard",
     label: "Dashboard",
-    href: "/member",
+    href: "/member/dashboard",
     icon: <CiGrid41 />
   },
   {
