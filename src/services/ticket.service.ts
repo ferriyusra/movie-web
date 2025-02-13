@@ -3,6 +3,7 @@ import endpoint from "./endpoint.constant";
 import { ITicket } from "@/types/Ticket";
 
 const ticketServices = {
+  getTicketsById: (id: string) => instance.get(`${endpoint.TICKET}/${id}`),
   getTicketsByEventId: (id: string) =>
     instance.get(`${endpoint.TICKET}/${id}/events`),
   addTicket: (payload: ITicket) => instance.post(`${endpoint.TICKET}`, payload),
