@@ -3,7 +3,6 @@ import useChangeUrl from "@/hooks/useChangeUrl";
 import { Select, SelectItem, Pagination } from "@heroui/react";
 
 interface PropTypes {
-  total: number;
   totalPages: number;
 }
 

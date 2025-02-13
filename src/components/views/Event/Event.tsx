@@ -42,10 +42,7 @@ const Event = () => {
             ))}
         </div>
         {!isLoadingEvents && dataEvents?.data?.length > 0 && (
-          <EventFooter
-            total={dataEvents?.pagination?.total}
-            totalPages={dataEvents?.pagination?.totalPages}
-          />
+          <EventFooter totalPages={dataEvents?.pagination?.totalPages} />
         )}
         {dataEvents?.data?.length < 1 && !isLoadingEvents && !isRefetchingEvents && (
           <div className="flex flex-col items-center justify-center gap-4 py-20">
