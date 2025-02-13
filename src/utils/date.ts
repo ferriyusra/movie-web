@@ -1,5 +1,5 @@
 import { parseAbsoluteToLocal } from "@internationalized/date";
-import { DateValue } from "@nextui-org/react";
+import { DateValue } from "@heroui/react";
 
 const standardDate = (date: number) => {
   if (date < 10) {

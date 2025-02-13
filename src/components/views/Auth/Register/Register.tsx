@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, Input, Spinner } from "@nextui-org/react";
+import { Button, Card, CardBody, Input, Spinner } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import useRegister from "./useRegister";

@@ -6,7 +6,7 @@ import {
   ModalFooter,
   Button,
   Spinner,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import useDeleteEventModal from "./useDeleteEventModal";
 

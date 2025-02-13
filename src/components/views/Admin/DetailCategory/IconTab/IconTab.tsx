@@ -1,5 +1,5 @@
 import InputFile from "@/components/ui/InputFile";
-import { Button, Card, CardBody, CardHeader, Skeleton, Spinner } from "@nextui-org/react";
+import { Button, Card, CardBody, CardHeader, Skeleton, Spinner } from "@heroui/react";
 import Image from "next/image";
 import useIconTab from "./useIconTab";
 import { Controller } from "react-hook-form";

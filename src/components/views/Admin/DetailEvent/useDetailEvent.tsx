@@ -5,7 +5,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { toDateStandard } from "@/utils/date";
-import { DateValue } from "@nextui-org/react";
+import { DateValue } from "@heroui/react";
 
 const useDetailEvent = () => {
   const { query, isReady } = useRouter();

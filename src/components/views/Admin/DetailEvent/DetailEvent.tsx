@@ -1,4 +1,4 @@
-import { Tabs, Tab } from "@nextui-org/react";
+import { Tabs, Tab } from "@heroui/react";
 import CoverTab from "./CoverTab";
 import InfoTab from "./InfoTab";
 import useDetailEvent from "./useDetailEvent";

@@ -18,7 +18,7 @@ import {
   Listbox,
   ListboxItem,
   Spinner,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import Image from "next/image";
 import { BUTTON_ITEMS, NAV_ITEMS } from "../LandingPageLayout.constants";
 import { cn } from "@/utils/cn";
@@ -135,7 +135,7 @@ const LandingPageLayoutNavbar = () => {
                   Profile
                 </DropdownItem>
                 <DropdownItem key="signout" onPress={() => signOut()}>
-                  Logout
+                  Log Out
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -176,17 +176,24 @@ const LandingPageLayoutNavbar = () => {
           {session.status === "authenticated" ? (
             <Fragment>
               <NavbarMenuItem
-                className={cn(
-                  "font-medium text-default-700 hover:text-danger",
-                  {
-                    hidden: dataProfile?.role !== "admin",
-                  },
-                )}
+                className={cn({
+                  hidden: dataProfile?.role !== "admin",
+                })}
               >
-                <Link href="/admin/event">Admin</Link>
+                <Link
+                  href="/admin/event"
+                  className="font-medium text-default-700 hover:text-danger"
+                >
+                  Admin
+                </Link>
               </NavbarMenuItem>
-              <NavbarMenuItem className="font-medium text-default-700 hover:text-danger">
-                <Link href="/member/profile">Profile</Link>
+              <NavbarMenuItem>
+                <Link
+                  className="font-medium text-default-700 hover:text-danger"
+                  href="/member/profile"
+                >
+                  Profile
+                </Link>
               </NavbarMenuItem>
               <NavbarMenuItem>
                 <Button
@@ -196,7 +203,7 @@ const LandingPageLayoutNavbar = () => {
                   variant="bordered"
                   size="md"
                 >
-                  Logout
+                  Log Out
                 </Button>
               </NavbarMenuItem>
             </Fragment>

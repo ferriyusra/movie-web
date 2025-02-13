@@ -41,6 +41,12 @@ interface IProfile {
   username?: string;
 }
 
+interface IUpdatePassword {
+  oldPassword: string;
+  password: string;
+  confirmPassword: string;
+}
+
 export type {
   IRegister,
   IActivation,
@@ -49,4 +55,5 @@ export type {
   SessionExtended,
   JWTExtended,
   IProfile,
+  IUpdatePassword,
 };

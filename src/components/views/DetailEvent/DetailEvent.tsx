@@ -4,7 +4,7 @@ import {
   Skeleton,
   Tab,
   Tabs,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import useDetailEvent from "./useDetailEvent";
 import { FaClock, FaLocationDot } from "react-icons/fa6";
 import { convertTime } from "@/utils/date";

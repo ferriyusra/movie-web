@@ -1,4 +1,4 @@
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Spinner } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Spinner } from "@heroui/react";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import useDeleteTransactionModal from "./useDeleteTransactionModal";
 

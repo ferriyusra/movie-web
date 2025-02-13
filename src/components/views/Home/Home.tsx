@@ -1,4 +1,4 @@
-import { Skeleton } from "@nextui-org/react";
+import { Skeleton } from "@heroui/react";
 import HomeEventList from "./HomeEventList";
 import HomeSlider from "./HomeSlider";
 import useHome from "./useHome";

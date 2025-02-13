@@ -1,7 +1,8 @@
-import { Tabs, Tab } from "@nextui-org/react";
+import { Tabs, Tab } from "@heroui/react";
 import PictureTab from "./PictureTab";
 import useProfile from "./useProfile";
 import InfoTab from "./InfoTab";
+import SecurityTab from "./SecurityTab";
 
 const Profile = () => {
   const {
@@ -28,6 +29,9 @@ const Profile = () => {
           isPendingUpdate={isPendingMutateUpdateProfile}
           isSuccessUpdate={isSuccessMutateUpdateProfile}
         />
+      </Tab>
+      <Tab key="security" title="Kata Sandi">
+        <SecurityTab />
       </Tab>
     </Tabs>
   );

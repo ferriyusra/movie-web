@@ -5,7 +5,7 @@ import {
   Select,
   SelectItem,
   Skeleton,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { Controller } from "react-hook-form";
 import useEventFilter from "./useEventFilter";
 import useChangeUrl from "@/hooks/useChangeUrl";

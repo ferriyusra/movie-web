@@ -6,7 +6,7 @@ import {
   CardHeader,
   Skeleton,
   Spinner,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import Image from "next/image";
 import useCoverTab from "./useCoverTab";
 import { Controller } from "react-hook-form";

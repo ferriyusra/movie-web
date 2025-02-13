@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, Chip, Skeleton } from "@nextui-org/react";
+import { Button, Card, CardBody, Chip, Skeleton } from "@heroui/react";
 import useDetailTransaction from "./useDetailTransaction";
 import { convertIDR } from "@/utils/currency";
 import { QRCodeSVG } from "qrcode.react"

@@ -8,7 +8,7 @@ import {
   ModalHeader,
   Spinner,
   Textarea,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import useAddTicketModal from "./useAddTicketModal";
 import { Controller } from "react-hook-form";
 import { useEffect } from "react";

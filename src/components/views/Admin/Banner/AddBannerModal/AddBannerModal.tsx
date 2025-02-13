@@ -9,7 +9,7 @@ import {
   Select,
   SelectItem,
   Spinner,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import useAddBannerModal from "./useAddBannerModal";
 import { Controller } from "react-hook-form";
 import InputFile from "@/components/ui/InputFile";

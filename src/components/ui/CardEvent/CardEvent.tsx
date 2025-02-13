@@ -1,7 +1,7 @@
 import { IEvent } from "@/types/Event";
 import { cn } from "@/utils/cn";
 import { convertTime } from "@/utils/date";
-import { Card, CardBody, CardFooter, Skeleton } from "@nextui-org/react";
+import { Card, CardBody, CardFooter, Skeleton } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";

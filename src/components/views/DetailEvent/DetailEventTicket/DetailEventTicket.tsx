@@ -1,6 +1,6 @@
 import { ICart, ITicket } from "@/types/Ticket";
 import { convertIDR } from "@/utils/currency";
-import { Accordion, AccordionItem, Button, Card, Chip } from "@nextui-org/react";
+import { Accordion, AccordionItem, Button, Card, Chip } from "@heroui/react";
 import { useSession } from "next-auth/react";
 
 interface PropTypes {

@@ -13,7 +13,7 @@ import {
   DatePicker,
   Select,
   SelectItem,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import useAddEventModal from "./useAddEventModal";
 import { Controller } from "react-hook-form";
 import InputFile from "@/components/ui/InputFile";

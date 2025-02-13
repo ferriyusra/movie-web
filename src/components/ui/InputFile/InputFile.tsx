@@ -1,5 +1,5 @@
 import { cn } from "@/utils/cn";
-import { Button, Spinner } from "@nextui-org/react";
+import { Button, Spinner } from "@heroui/react";
 import Image from "next/image";
 import React, { ChangeEvent, ReactNode, useEffect, useId, useRef, useState } from "react";
 import { CiSaveUp2, CiTrash } from "react-icons/ci";

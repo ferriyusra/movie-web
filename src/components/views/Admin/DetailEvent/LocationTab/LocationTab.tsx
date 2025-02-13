@@ -10,7 +10,7 @@ import {
   SelectItem,
   Skeleton,
   Spinner,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import useLocationTab from "./useLocationTab";
 import { Controller } from "react-hook-form";
 import { useEffect } from "react";

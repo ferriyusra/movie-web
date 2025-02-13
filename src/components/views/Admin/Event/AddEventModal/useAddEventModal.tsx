@@ -7,7 +7,7 @@ import eventServices from "@/services/event.service";
 import { IEvent, IEventForm } from "@/types/Event";
 import { toDateStandard } from "@/utils/date";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { DateValue } from "@nextui-org/react";
+import { DateValue } from "@heroui/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";

@@ -9,7 +9,7 @@ import {
   Skeleton,
   Spinner,
   Textarea,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import useInfoTab from "./useInfoTab";
 import { Controller } from "react-hook-form";
 import { useEffect } from "react";

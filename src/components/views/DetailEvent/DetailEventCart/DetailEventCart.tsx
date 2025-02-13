@@ -1,6 +1,6 @@
 import { ICart, ITicket } from "@/types/Ticket";
 import { convertIDR } from "@/utils/currency";
-import { Button, Card, CardBody, CardFooter, Divider, Spinner } from "@nextui-org/react";
+import { Button, Card, CardBody, CardFooter, Divider, Spinner } from "@heroui/react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";

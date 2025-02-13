@@ -2,7 +2,7 @@ import DataTable from "@/components/ui/DataTable";
 import {
   Chip,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Key, ReactNode, useCallback, useEffect } from "react";

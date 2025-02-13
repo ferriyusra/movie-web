@@ -1,4 +1,4 @@
-import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Spinner, Textarea } from "@nextui-org/react"
+import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Spinner, Textarea } from "@heroui/react"
 import useAddCategoryModal from "./useAddCategoryModal";
 import { Controller } from "react-hook-form";
 import InputFile from "@/components/ui/InputFile";

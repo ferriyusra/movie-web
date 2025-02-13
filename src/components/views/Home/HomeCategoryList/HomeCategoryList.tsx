@@ -1,5 +1,5 @@
 import { ICategory } from "@/types/Category";
-import { Card, CardBody, CardHeader, Skeleton } from "@nextui-org/react";
+import { Card, CardBody, CardHeader, Skeleton } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 

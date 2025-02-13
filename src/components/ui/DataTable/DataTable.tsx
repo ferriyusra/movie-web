@@ -14,7 +14,7 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { ChangeEvent, Key, ReactNode, useMemo } from "react";
 import { CiSearch } from "react-icons/ci";
 

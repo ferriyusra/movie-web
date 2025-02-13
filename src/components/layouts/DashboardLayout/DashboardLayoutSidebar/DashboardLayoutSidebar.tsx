@@ -1,4 +1,4 @@
-import { Button, Listbox, ListboxItem } from "@nextui-org/react";
+import { Button, Listbox, ListboxItem } from "@heroui/react";
 import { signOut } from "next-auth/react";
 import { CiLogout } from "react-icons/ci";
 import Image from "next/image";
