@@ -31,7 +31,7 @@ export async function middleware(request: NextRequest) {
     }
 
     if (pathname === "/admin") {
-      return NextResponse.redirect(new URL("/admin/dashboard", request.url));
+      return NextResponse.redirect(new URL("/admin/event", request.url));
     }
   }
 
@@ -44,7 +44,7 @@ export async function middleware(request: NextRequest) {
     }
 
     if (pathname === "/member") {
-      return NextResponse.redirect(new URL("/member/dashboard", request.url));
+      return NextResponse.redirect(new URL("/member/profile", request.url));
     }
   }
 }

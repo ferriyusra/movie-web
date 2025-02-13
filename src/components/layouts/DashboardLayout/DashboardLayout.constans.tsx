@@ -1,12 +1,6 @@
-import { CiGrid41, CiSettings, CiWallet, CiViewList, CiShoppingTag, CiBookmark } from "react-icons/ci"
+import { CiWallet, CiViewList, CiShoppingTag, CiBookmark, CiUser } from "react-icons/ci"
 
 const SIDEBAR_MEMBER = [
-  {
-    key: "dashboard",
-    label: "Dashboard",
-    href: "/member/dashboard",
-    icon: <CiGrid41 />
-  },
   {
     key: "transation",
     label: "Transaction",
@@ -14,20 +8,14 @@ const SIDEBAR_MEMBER = [
     icon: <CiWallet />
   },
   {
-    key: "setting",
-    label: "Setting",
-    href: "/member/setting",
-    icon: <CiSettings />
+    key: "profile",
+    label: "Profile",
+    href: "/member/profile",
+    icon: <CiUser />
   },
 ]
 
 const SIDEBAR_ADMIN = [
-  {
-    key: "dashboard",
-    label: "Dashboard",
-    href: "/admin/dashboard",
-    icon: <CiGrid41 />
-  },
   {
     key: "event",
     label: "Event",

@@ -12,7 +12,7 @@ import useTransaction from "./useTransaction";
 import { convertIDR } from "@/utils/currency";
 import DeleteTransactionModal from "./DeleteTransactionModal";
 
-const Category = () => {
+const Transaction = () => {
   const { isReady, push, query } = useRouter();
   const {
     dataTransactions,
@@ -89,4 +89,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default Transaction;

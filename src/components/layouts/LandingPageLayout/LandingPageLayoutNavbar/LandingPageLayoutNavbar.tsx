@@ -124,7 +124,7 @@ const LandingPageLayoutNavbar = () => {
               <DropdownMenu>
                 <DropdownItem
                   key="admin"
-                  href="/admin/dashboard"
+                  href="/admin/event"
                   className={cn({
                     hidden: dataProfile?.role !== "admin",
                   })}
@@ -183,7 +183,7 @@ const LandingPageLayoutNavbar = () => {
                   },
                 )}
               >
-                <Link href="/admin/dashboard">Admin</Link>
+                <Link href="/admin/event">Admin</Link>
               </NavbarMenuItem>
               <NavbarMenuItem className="font-medium text-default-700 hover:text-danger">
                 <Link href="/member/profile">Profile</Link>
