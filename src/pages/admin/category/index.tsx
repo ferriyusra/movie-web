@@ -4,7 +4,7 @@ import Category from "@/components/views/Admin/Category";
 const AdminCategoryPage = () => {
   return (
     <DashboardLayout
-      title="Category"
+      title="Kategori"
       description="Daftar Semua Kategori, tambah Kategori dan atur Kategori yang tersedia."
       type="admin">
       <Category />
