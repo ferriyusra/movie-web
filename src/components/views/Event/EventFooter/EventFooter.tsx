@@ -10,7 +10,7 @@ const EventFooter = (props: PropTypes) => {
   const { totalPages } = props;
   const { currentLimit, currentPage, handleChangeLimit, handleChangePage } =
     useChangeUrl();
-  console.log('current limit ', currentLimit)
+
   return (
     <div className="flex flex-col items-center justify-center gap-4 lg:flex-row lg:justify-between">
       <Select
