@@ -10,17 +10,17 @@ const EventFooter = (props: PropTypes) => {
   const { totalPages } = props;
   const { currentLimit, currentPage, handleChangeLimit, handleChangePage } =
     useChangeUrl();
-
+  console.log('current limit ', currentLimit)
   return (
     <div className="flex flex-col items-center justify-center gap-4 lg:flex-row lg:justify-between">
       <Select
-        disallowEmptySelection
-        className="max-w-28"
+        className="w-fit min-w-[140px]"
         size="md"
         selectedKeys={[`${currentLimit}`]}
         selectionMode="single"
         onChange={handleChangeLimit}
         startContent={<p className="text-small">Tampilkan:</p>}
+        disallowEmptySelection
       >
         {LIMIT_LISTS.map((item) => (
           <SelectItem key={item.value} value={item.value}>
