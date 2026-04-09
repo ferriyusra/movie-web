@@ -8,7 +8,7 @@ const headers = {
 };
 
 const instance = axios.create({
-  baseURL: environment.API_URL,
+  baseURL: typeof window !== "undefined" ? "/api/proxy" : environment.API_URL,
   headers,
   timeout: 60 * 1000,
 });

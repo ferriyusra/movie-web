@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import useMovieDetail from "./useMovieDetail";
 import { IMovie } from "@/types/Movie";
-import { IShowtime } from "@/types/Showtime";
+import { IShowtimeDetail } from "@/types/Showtime";
 import { formatCurrency } from "@/utils/currency";
 
 const MovieDetail = () => {
@@ -82,11 +82,11 @@ const MovieDetail = () => {
           <Spinner color="danger" />
         ) : dataShowtimes.length === 0 ? (
           <p className="text-default-400">
-            No showtimes available for this date.
+            No showtimes for this movie on {selectedDate}.
           </p>
         ) : (
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {dataShowtimes.map((showtime: IShowtime) => (
+            {dataShowtimes.map((showtime: IShowtimeDetail) => (
               <Card key={showtime.id}>
                 <CardBody className="flex flex-row items-center justify-between gap-3 p-4">
                   <div>
@@ -96,6 +96,11 @@ const MovieDetail = () => {
                         minute: "2-digit",
                       })}
                     </p>
+                    {showtime.theater && (
+                      <p className="text-sm text-default-500">
+                        {showtime.theater.name}
+                      </p>
+                    )}
                     <p className="text-sm text-default-400">
                       {formatCurrency(showtime.price)}
                     </p>

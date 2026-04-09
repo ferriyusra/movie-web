@@ -9,6 +9,9 @@ const showtimeServices = {
   getShowtimeById: (id: string) =>
     instance.get(`${endpoint.SHOWTIMES}/${id}`),
 
+  getSeatMap: (showtimeId: string) =>
+    instance.get(`${endpoint.SHOWTIMES}/${showtimeId}/seats`),
+
   addShowtime: (payload: IShowtimeForm) =>
     instance.post(endpoint.SHOWTIMES, payload),
 

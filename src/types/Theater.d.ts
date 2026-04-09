@@ -3,7 +3,8 @@ interface ISeat {
   row: string;
   number: number;
   label: string;
-  type: "standard" | "vip" | "accessible";
+  type: "standard" | "premium" | "accessible";
+  status?: "available" | "reserved";
 }
 
 interface ITheater {

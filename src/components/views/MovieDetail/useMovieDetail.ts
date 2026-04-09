@@ -3,19 +3,20 @@ import { useQuery } from "@tanstack/react-query";
 import movieServices from "@/services/movie.service";
 import showtimeServices from "@/services/showtime.service";
 import { useRouter } from "next/router";
-import { IShowtime } from "@/types/Showtime";
+import { IShowtimeDetail } from "@/types/Showtime";
+
+const getTomorrow = () => {
+  const d = new Date();
+  d.setDate(d.getDate() + 1);
+  return d.toISOString().split("T")[0];
+};
 
 const useMovieDetail = () => {
   const router = useRouter();
   const { id } = router.query;
-  const [selectedDate, setSelectedDate] = useState(
-    new Date().toISOString().split("T")[0],
-  );
+  const [selectedDate, setSelectedDate] = useState(getTomorrow);
 
-  const {
-    data: dataMovie,
-    isLoading: isLoadingMovie,
-  } = useQuery({
+  const { data: dataMovie, isLoading: isLoadingMovie } = useQuery({
     queryKey: ["Movie", id],
     queryFn: async () => {
       const { data } = await movieServices.getMovieById(id as string);
@@ -24,23 +25,25 @@ const useMovieDetail = () => {
     enabled: !!id,
   });
 
-  const { data: dataShowtimes, isLoading: isLoadingShowtimes } = useQuery({
-    queryKey: ["MovieShowtimes", id, selectedDate],
+  const { data: allShowtimes, isLoading: isLoadingShowtimes } = useQuery({
+    queryKey: ["Showtimes", selectedDate],
     queryFn: async () => {
       const { data } = await showtimeServices.getShowtimes(
         `date=${selectedDate}`,
       );
-      return (data.data as IShowtime[]).filter(
-        (s) => s.movieId === id,
-      );
+      return data.data as IShowtimeDetail[];
     },
-    enabled: !!id && !!selectedDate,
+    enabled: !!selectedDate,
   });
+
+  const dataShowtimes = (allShowtimes || []).filter(
+    (s) => s.movieId === (id as string),
+  );
 
   return {
     dataMovie,
     isLoadingMovie,
-    dataShowtimes: dataShowtimes || [],
+    dataShowtimes,
     isLoadingShowtimes,
     selectedDate,
     setSelectedDate,

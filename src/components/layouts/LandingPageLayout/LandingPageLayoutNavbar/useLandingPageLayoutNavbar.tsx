@@ -4,10 +4,12 @@ import authServices from "@/services/auth.service";
 import movieServices from "@/services/movie.service";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import { ChangeEvent, useState } from "react";
 
 const useLandingPageLayoutNavbar = () => {
   const router = useRouter();
+  const { status } = useSession();
   const [search, setSearch] = useState("");
   const debounce = useDebounce();
 
@@ -19,7 +21,7 @@ const useLandingPageLayoutNavbar = () => {
   const { data: dataProfile } = useQuery({
     queryKey: ["Profile"],
     queryFn: getProfile,
-    enabled: router.isReady,
+    enabled: status === "authenticated",
   });
 
   const getMoviesSearch = async () => {

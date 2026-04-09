@@ -1,11 +1,10 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useMemo } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import showtimeServices from "@/services/showtime.service";
-import theaterServices from "@/services/theater.service";
 import reservationServices from "@/services/reservation.service";
 import { ToasterContext } from "@/contexts/ToasterContext";
-import { ISeat, ITheaterDetail } from "@/types/Theater";
+import { ISeat } from "@/types/Theater";
 import { IShowtimeDetail } from "@/types/Showtime";
 
 const MAX_SEATS = 10;
@@ -18,7 +17,12 @@ const useSeatPicker = () => {
     new Set(),
   );
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [bookingSuccess, setBookingSuccess] = useState<{
+    bookingReference: string;
+    reservationId: string;
+  } | null>(null);
 
+  // GET /showtimes/:id — showtime detail with movie & theater
   const { data: showtime, isLoading: isLoadingShowtime } = useQuery({
     queryKey: ["Showtime", showtimeId],
     queryFn: async () => {
@@ -30,21 +34,27 @@ const useSeatPicker = () => {
     enabled: !!showtimeId,
   });
 
-  const { data: theater, isLoading: isLoadingTheater } = useQuery({
-    queryKey: ["Theater", showtime?.theaterId],
+  // GET /showtimes/:id/seats — seat map with status (available/reserved)
+  const { data: seatMap, isLoading: isLoadingSeatMap } = useQuery({
+    queryKey: ["SeatMap", showtimeId],
     queryFn: async () => {
-      const { data } = await theaterServices.getTheaterById(
-        showtime!.theaterId,
+      const { data } = await showtimeServices.getSeatMap(
+        showtimeId as string,
       );
-      return data.data as ITheaterDetail;
+      return data.data as ISeat[];
     },
-    enabled: !!showtime?.theaterId,
+    enabled: !!showtimeId,
   });
 
-  // For now, we don't have reserved seat IDs from the API directly.
-  // The seat availability is represented by availableSeats count.
-  // A real implementation would fetch reserved seat IDs for this showtime.
-  const reservedSeatIds = new Set<string>();
+  const reservedSeatIds = useMemo(() => {
+    const set = new Set<string>();
+    seatMap?.forEach((seat) => {
+      if (seat.status === "reserved") {
+        set.add(seat.id);
+      }
+    });
+    return set;
+  }, [seatMap]);
 
   const handleSeatClick = (seat: ISeat) => {
     const newSet = new Set(selectedSeatIds);
@@ -74,19 +84,24 @@ const useSeatPicker = () => {
       setConfirmOpen(false);
     },
     onSuccess: (res) => {
-      const reservationId = res.data.data.id;
-      setToaster({
-        type: "success",
-        message: `Booking confirmed! Ref: ${res.data.data.bookingReference}`,
+      setConfirmOpen(false);
+      setBookingSuccess({
+        bookingReference: res.data.data.bookingReference,
+        reservationId: res.data.data.id,
       });
-      router.push(`/member/reservations/${reservationId}`);
     },
   });
 
+  const goToReservation = () => {
+    if (bookingSuccess) {
+      router.push(`/member/reservations/${bookingSuccess.reservationId}`);
+    }
+  };
+
   return {
     showtime,
-    theater,
-    isLoading: isLoadingShowtime || isLoadingTheater,
+    seats: seatMap || [],
+    isLoading: isLoadingShowtime || isLoadingSeatMap,
     selectedSeatIds,
     reservedSeatIds,
     handleSeatClick,
@@ -95,6 +110,8 @@ const useSeatPicker = () => {
     setConfirmOpen,
     mutateBook,
     isPendingBook,
+    bookingSuccess,
+    goToReservation,
   };
 };
 

@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { signOut } from "next-auth/react";
+import { getSession, signOut } from "next-auth/react";
 
 interface ErrorResponseData {
   success: boolean;
@@ -7,10 +7,13 @@ interface ErrorResponseData {
   errors?: Record<string, string>;
 }
 
-const onErrorHandler = (error: Error) => {
+const onErrorHandler = async (error: Error) => {
   const { response } = error as AxiosError;
   if (response?.status === 401) {
-    signOut();
+    const session = await getSession();
+    if (session) {
+      signOut({ callbackUrl: "/auth/login" });
+    }
   }
 };
 

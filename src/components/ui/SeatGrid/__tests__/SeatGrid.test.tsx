@@ -4,10 +4,10 @@ import SeatGrid from "../SeatGrid";
 import { ISeat } from "@/types/Theater";
 
 const mockSeats: ISeat[] = [
-  { id: "1", row: "A", number: 1, label: "A1", type: "standard" },
-  { id: "2", row: "A", number: 2, label: "A2", type: "standard" },
-  { id: "3", row: "B", number: 1, label: "B1", type: "standard" },
-  { id: "4", row: "B", number: 2, label: "B2", type: "vip" },
+  { id: "1", row: "A", number: 1, label: "A1", type: "standard", status: "available" },
+  { id: "2", row: "A", number: 2, label: "A2", type: "standard", status: "available" },
+  { id: "3", row: "B", number: 1, label: "B1", type: "standard", status: "available" },
+  { id: "4", row: "B", number: 2, label: "B2", type: "premium", status: "reserved" },
 ];
 
 describe("SeatGrid", () => {

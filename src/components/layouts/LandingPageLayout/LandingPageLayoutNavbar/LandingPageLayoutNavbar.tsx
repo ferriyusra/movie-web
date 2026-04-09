@@ -28,10 +28,13 @@ import { signOut, useSession } from "next-auth/react";
 import useLandingPageLayoutNavbar from "./useLandingPageLayoutNavbar";
 import { Fragment } from "react";
 import { IMovie } from "@/types/Movie";
+import { UserExtended } from "@/types/Auth";
 
 const LandingPageLayoutNavbar = () => {
   const router = useRouter();
   const session = useSession();
+  const user = session.data?.user as UserExtended | undefined;
+  const isAdmin = user?.role === "admin";
   const {
     dataProfile,
     dataMoviesSearch,
@@ -124,7 +127,7 @@ const LandingPageLayoutNavbar = () => {
                   key="admin"
                   href="/admin/movies"
                   className={cn({
-                    hidden: dataProfile?.role !== "admin",
+                    hidden: !isAdmin,
                   })}
                 >
                   Admin
@@ -178,7 +181,7 @@ const LandingPageLayoutNavbar = () => {
             <Fragment>
               <NavbarMenuItem
                 className={cn({
-                  hidden: dataProfile?.role !== "admin",
+                  hidden: !isAdmin,
                 })}
               >
                 <Link

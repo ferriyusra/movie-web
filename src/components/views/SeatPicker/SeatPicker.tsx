@@ -9,6 +9,7 @@ import {
   ModalHeader,
   Spinner,
 } from "@heroui/react";
+import { FaCircleCheck } from "react-icons/fa6";
 import SeatGrid from "@/components/ui/SeatGrid";
 import useSeatPicker from "./useSeatPicker";
 import { formatCurrency } from "@/utils/currency";
@@ -16,7 +17,7 @@ import { formatCurrency } from "@/utils/currency";
 const SeatPicker = () => {
   const {
     showtime,
-    theater,
+    seats,
     isLoading,
     selectedSeatIds,
     reservedSeatIds,
@@ -26,6 +27,8 @@ const SeatPicker = () => {
     setConfirmOpen,
     mutateBook,
     isPendingBook,
+    bookingSuccess,
+    goToReservation,
   } = useSeatPicker();
 
   if (isLoading) {
@@ -36,7 +39,33 @@ const SeatPicker = () => {
     );
   }
 
-  if (!showtime || !theater) {
+  if (bookingSuccess) {
+    return (
+      <section className="mx-auto flex max-w-lg flex-col items-center gap-6 px-4 py-20 text-center">
+        <FaCircleCheck className="text-7xl text-success-500" />
+        <h1 className="text-3xl font-bold">Booking Confirmed!</h1>
+        <p className="text-default-500">
+          Your reservation has been successfully placed.
+        </p>
+        <Card className="w-full">
+          <CardBody className="flex flex-col items-center gap-2 p-6">
+            <p className="text-sm text-default-400">Booking Reference</p>
+            <p className="text-2xl font-bold tracking-wider">
+              {bookingSuccess.bookingReference}
+            </p>
+          </CardBody>
+        </Card>
+        <p className="text-sm text-default-400">
+          Please save your booking reference for check-in.
+        </p>
+        <Button color="danger" size="lg" onPress={goToReservation}>
+          View Reservation Detail
+        </Button>
+      </section>
+    );
+  }
+
+  if (!showtime) {
     return (
       <p className="py-20 text-center text-default-400">
         Showtime not found
@@ -44,16 +73,14 @@ const SeatPicker = () => {
     );
   }
 
-  const selectedSeats = theater.seats?.filter((s) =>
-    selectedSeatIds.has(s.id),
-  );
+  const selectedSeats = seats.filter((s) => selectedSeatIds.has(s.id));
 
   return (
     <section className="mx-auto max-w-4xl px-4">
       <h1 className="mb-2 text-2xl font-bold">Select Your Seats</h1>
       <div className="mb-6 text-sm text-default-500">
         <p>
-          {showtime.movie?.title} &middot; {theater.name} &middot;{" "}
+          {showtime.movie?.title} &middot; {showtime.theater?.name} &middot;{" "}
           {new Date(showtime.startTime).toLocaleString()}
         </p>
         <p>{formatCurrency(showtime.price)} per seat</p>
@@ -61,7 +88,7 @@ const SeatPicker = () => {
 
       <div className="mb-8 overflow-x-auto">
         <SeatGrid
-          seats={theater.seats || []}
+          seats={seats}
           selectedSeatIds={selectedSeatIds}
           reservedSeatIds={reservedSeatIds}
           onSeatClick={handleSeatClick}
@@ -96,7 +123,7 @@ const SeatPicker = () => {
               <strong>Movie:</strong> {showtime.movie?.title}
             </p>
             <p className="mb-2">
-              <strong>Theater:</strong> {theater.name}
+              <strong>Theater:</strong> {showtime.theater?.name}
             </p>
             <p className="mb-2">
               <strong>Time:</strong>{" "}
@@ -104,7 +131,7 @@ const SeatPicker = () => {
             </p>
             <p className="mb-2">
               <strong>Seats:</strong>{" "}
-              {selectedSeats?.map((s) => s.label).join(", ")}
+              {selectedSeats.map((s) => s.label).join(", ")}
             </p>
             <p className="text-lg font-bold">
               Total: {formatCurrency(totalAmount)}
