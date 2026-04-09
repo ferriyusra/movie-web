@@ -62,7 +62,7 @@ const DataTable = (props: PropTypes) => {
           <Input
             isClearable
             className="w-full sm:max-w-[24%]"
-            placeholder="Cari berdasarkan nama"
+            placeholder="Search by name"
             startContent={<CiSearch />}
             onClear={handleClearSearch}
             onChange={handleSearch}
@@ -93,7 +93,7 @@ const DataTable = (props: PropTypes) => {
             selectedKeys={[`${currentLimit}`]}
             selectionMode="single"
             onChange={handleChangeLimit}
-            startContent={<p className="text-small">Tampilkan:</p>}
+            startContent={<p className="text-small">Show:</p>}
           >
             {LIMIT_LISTS.map((item) => (
               <SelectItem key={item.value} value={item.value}>
@@ -147,7 +147,7 @@ const DataTable = (props: PropTypes) => {
         }
       >
         {(item) => (
-          <TableRow key={item._id as Key}>
+          <TableRow key={item.id as Key}>
             {(columnKey) => (
               <TableCell>{renderCell(item, columnKey)}</TableCell>
             )}

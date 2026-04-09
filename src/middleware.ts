@@ -21,8 +21,7 @@ export async function middleware(request: NextRequest) {
   if (pathname.startsWith("/admin")) {
     if (!token) {
       const url = new URL("/auth/login", request.url);
-      url.searchParams.set("callbackUrl", encodeURI(request.url));
-
+      url.searchParams.set("callbackUrl", pathname);
       return NextResponse.redirect(url);
     }
 
@@ -31,20 +30,21 @@ export async function middleware(request: NextRequest) {
     }
 
     if (pathname === "/admin") {
-      return NextResponse.redirect(new URL("/admin/event", request.url));
+      return NextResponse.redirect(new URL("/admin/movies", request.url));
     }
   }
 
   if (pathname.startsWith("/member")) {
     if (!token) {
       const url = new URL("/auth/login", request.url);
-      url.searchParams.set("callbackUrl", encodeURI(request.url));
-
+      url.searchParams.set("callbackUrl", pathname);
       return NextResponse.redirect(url);
     }
 
     if (pathname === "/member") {
-      return NextResponse.redirect(new URL("/member/profile", request.url));
+      return NextResponse.redirect(
+        new URL("/member/reservations", request.url),
+      );
     }
   }
 }

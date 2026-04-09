@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(rm:*)",
+      "Bash(npx shadcn@latest add alert-dialog:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx eslint:*)",
+      "Bash(mkdir:*)",
+      "Bash(cat:*)",
+      "Bash(test:*)",
+      "Bash(npm run build:*)",
+      "Bash(timeout 90s npm run build:*)",
+      "Bash(find:*)",
+      "Bash(npm run dev:*)",
+      "Bash(dir:*)",
+      "Bash(git checkout:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": [],
+    "additionalDirectories": [
+      "/Users/ferri/Documents/dev/learning/fullstack/movie-cinema/movie-web/src/pages/admin/movies",
+      "/Users/ferri/Documents/dev/learning/fullstack/movie-cinema/movie-web/src/pages/showtimes",
+      "/Users/ferri/Documents/dev/learning/fullstack/movie-cinema/movie-web/src/pages/member/reservations"
+    ]
+  }
+}

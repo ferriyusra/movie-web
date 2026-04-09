@@ -2,17 +2,22 @@ import { AxiosError } from "axios";
 import { signOut } from "next-auth/react";
 
 interface ErrorResponseData {
-  data: {
-    name: string;
-  };
+  success: boolean;
+  message: string;
+  errors?: Record<string, string>;
 }
 
 const onErrorHandler = (error: Error) => {
   const { response } = error as AxiosError;
-  const res = response?.data as ErrorResponseData;
-  if (response && res?.data?.name === "TokenExpiredError") {
+  if (response?.status === 401) {
     signOut();
   }
 };
 
-export { onErrorHandler };
+const getErrorMessage = (error: Error): string => {
+  const { response } = error as AxiosError;
+  const res = response?.data as ErrorResponseData;
+  return res?.message || error.message || "Something went wrong";
+};
+
+export { onErrorHandler, getErrorMessage };

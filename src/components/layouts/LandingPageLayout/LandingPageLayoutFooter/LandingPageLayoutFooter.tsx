@@ -18,7 +18,7 @@ const LandingPageLayoutFooter = () => {
             Customer Service
           </h4>
           <p className="text-gray-600">
-            <Link href="mailto:ferisakuragi@gmail.com">hello@acara.com</Link> | {" "}
+            <Link href="mailto:hello@cinema.com">hello@cinema.com</Link> | {" "}
             <Link href="tel:+627212331">+62 7212331</Link>
           </p>
         </div>

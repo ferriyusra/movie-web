@@ -31,7 +31,7 @@ const DropdownAction = (props: PropTypes) => {
             onPress={onPressButtonDelete}
             className="text-danger-500"
           >
-            Hapus
+            Delete
           </DropdownItem>
         ) : null}
       </DropdownMenu>

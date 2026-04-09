@@ -15,9 +15,9 @@ export default NextAuth({
       id: "credentials",
       name: "credentials",
       credentials: {
-        identifier: {
+        email: {
           label: "Email",
-          type: "text",
+          type: "email",
         },
         password: {
           label: "Password",
@@ -25,31 +25,29 @@ export default NextAuth({
         },
       },
       async authorize(
-        credentials: Record<"identifier" | "password", string> | undefined,
+        credentials: Record<"email" | "password", string> | undefined,
       ): Promise<UserExtended | null> {
-        const { identifier, password } = credentials as {
-          identifier: string;
-          password: string;
-        };
+        try {
+          const { email, password } = credentials as {
+            email: string;
+            password: string;
+          };
 
-        const result = await authService.login({
-          identifier,
-          password,
-        });
+          const result = await authService.login({ email, password });
+          const { accessToken, refreshToken, user } = result.data.data;
 
-        const accessToken = result.data.data;
-        const me = await authService.getProfileWithToken(accessToken);
-        const user = me.data.data;
-
-        if (
-          accessToken &&
-          result.status === 200 &&
-          user._id &&
-          me.status === 200
-        ) {
-          user.accessToken = accessToken;
-          return user;
-        } else {
+          if (accessToken && result.status === 200 && user?.id) {
+            return {
+              id: user.id,
+              email: user.email,
+              name: user.name,
+              role: user.role,
+              accessToken,
+              refreshToken,
+            };
+          }
+          return null;
+        } catch {
           return null;
         }
       },

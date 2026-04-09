@@ -1,16 +1,16 @@
+import { ReactElement } from "react";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
-import Profile from "@/components/views/Member/Profile";
+import Profile from "@/components/views/Profile";
+import { NextPageWithLayout } from "@/pages/_app";
 
-const ProfileMemberPage = () => {
-  return (
-    <DashboardLayout
-      title="Profile"
-      description="Atur akun dan keamanan"
-      type="member"
-    >
-      <Profile />
-    </DashboardLayout>
-  );
+const ProfilePage: NextPageWithLayout = () => {
+  return <Profile />;
 };
 
-export default ProfileMemberPage;
+ProfilePage.getLayout = (page: ReactElement) => (
+  <DashboardLayout title="Profile" description="Your profile" type="member">
+    {page}
+  </DashboardLayout>
+);
+
+export default ProfilePage;

@@ -9,63 +9,44 @@ import { useRouter } from "next/router";
 import { ToasterContext } from "@/contexts/ToasterContext";
 
 const registerSchema = yup.object().shape({
-  fullName: yup.string().required("Mohon masukkan nama lengkap"),
-  username: yup.string().required("Mohon masukkan nama pengguna"),
+  name: yup.string().required("Please enter your name"),
   email: yup
     .string()
-    .email("Email tidak valid")
-    .required("Mohon masukkan email"),
+    .email("Invalid email address")
+    .required("Please enter your email"),
   password: yup
     .string()
-    .min(8, "Kata sandi minimal 8 karakter")
-    .required("Mohon masukkan kata sandi")
+    .min(8, "Password must be at least 8 characters")
+    .required("Please enter a password")
     .test(
       "at-least-one-uppercase-letter",
-      "Mengandung setidaknya satu huruf kapital",
+      "Must contain at least one uppercase letter",
       (value) => {
-        if (!value) {
-          return false;
-        }
-
-        const regex = /^(?=.*[A-Z])/;
-        return regex.test(value);
+        if (!value) return false;
+        return /[A-Z]/.test(value);
       },
     )
-    .test("at-least-one-number", "Berisi setidaknya satu nomor", (value) => {
-      if (!value) {
-        return false;
-      }
-
-      const regex = /^(?=.*\d)/;
-      return regex.test(value);
-    }),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref("password"), ""], "Kata sandi tidak sama")
-    .required("Mohon masukkan konfirmasi kata sandi"),
+    .test(
+      "at-least-one-number",
+      "Must contain at least one number",
+      (value) => {
+        if (!value) return false;
+        return /\d/.test(value);
+      },
+    ),
 });
 
 const useRegister = () => {
   const router = useRouter();
-  const [visiblePassword, setVisiblePassword] = useState({
-    password: false,
-    confirmPassword: false,
-  });
+  const [isVisible, setIsVisible] = useState(false);
+  const toggleVisibility = () => setIsVisible(!isVisible);
   const { setToaster } = useContext(ToasterContext);
-
-  const handleVisiblePassword = (key: "password" | "confirmPassword") => {
-    setVisiblePassword({
-      ...visiblePassword,
-      [key]: !visiblePassword[key],
-    });
-  };
 
   const {
     control,
     handleSubmit,
     formState: { errors },
     reset,
-    setError,
   } = useForm({
     resolver: yupResolver(registerSchema),
   });
@@ -77,7 +58,6 @@ const useRegister = () => {
 
   const { mutate: mutateRegister, isPending: isPendingRegister } = useMutation({
     mutationFn: registerService,
-
     onError: (error) => {
       setToaster({
         type: "error",
@@ -88,17 +68,17 @@ const useRegister = () => {
       reset();
       setToaster({
         type: "success",
-        message: "Daftar Berhasil!",
+        message: "Registration successful! Please login.",
       });
-      router.push("/auth/register/success");
+      router.push("/auth/login");
     },
   });
 
   const handleRegister = (data: IRegister) => mutateRegister(data);
 
   return {
-    visiblePassword,
-    handleVisiblePassword,
+    isVisible,
+    toggleVisibility,
     control,
     handleSubmit,
     handleRegister,

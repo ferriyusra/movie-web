@@ -6,4 +6,6 @@ const convertIDR = (value: number) => {
   }).format(value);
 };
 
-export { convertIDR };
+const formatCurrency = convertIDR;
+
+export { convertIDR, formatCurrency };

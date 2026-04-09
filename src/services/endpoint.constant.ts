@@ -1,12 +1,11 @@
 const endpoint = {
   AUTH: "/auth",
-  BANNER: "/banners",
-  CATEGORY: "/category",
-  MEDIA: "/media",
-  EVENT: "/events",
-  REGION: "/regions",
-  TICKET: "/tickets",
-  ORDERS: "/orders",
+  GENRES: "/genres",
+  MOVIES: "/movies",
+  THEATERS: "/theaters",
+  SHOWTIMES: "/showtimes",
+  RESERVATIONS: "/reservations",
+  ADMIN: "/admin",
 };
 
 export default endpoint;

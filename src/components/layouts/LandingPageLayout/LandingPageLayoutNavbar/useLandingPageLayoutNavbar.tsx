@@ -1,7 +1,7 @@
-import { DELAY, LIMIT_EVENT, PAGE_DEFAULT } from "@/constants/list.constants";
+import { DELAY, PAGE_DEFAULT, LIMIT_DEFAULT } from "@/constants/list.constants";
 import useDebounce from "@/hooks/useDebounce";
-import authServices from "@/services/auth.service"
-import eventServices from "@/services/event.service";
+import authServices from "@/services/auth.service";
+import movieServices from "@/services/movie.service";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
@@ -14,44 +14,44 @@ const useLandingPageLayoutNavbar = () => {
   const getProfile = async () => {
     const { data } = await authServices.getProfile();
     return data.data;
-  }
+  };
 
-  const {
-    data: dataProfile
-  } = useQuery({
+  const { data: dataProfile } = useQuery({
     queryKey: ["Profile"],
     queryFn: getProfile,
-    enabled: router.isReady
+    enabled: router.isReady,
   });
 
-  const getEventsSearch = async () => {
-    const params = `search=${search}limit=${LIMIT_EVENT}&page=${PAGE_DEFAULT}&isPublish=true`;
-    const res = await eventServices.getEvents(params);
+  const getMoviesSearch = async () => {
+    const params = `title=${search}&limit=${LIMIT_DEFAULT}&page=${PAGE_DEFAULT}`;
+    const res = await movieServices.getMovies(params);
     const { data } = res;
     return data;
   };
 
-  const { data: dataEventsSearch, isLoading: isLoadingEventsSearch, isRefetching: isRefetchingEventsSearch } =
-    useQuery({
-      queryKey: ["EventsSearch", search],
-      queryFn: getEventsSearch,
-      enabled: !!search,
-    });
+  const {
+    data: dataMoviesSearch,
+    isLoading: isLoadingMoviesSearch,
+    isRefetching: isRefetchingMoviesSearch,
+  } = useQuery({
+    queryKey: ["MoviesSearch", search],
+    queryFn: getMoviesSearch,
+    enabled: !!search,
+  });
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     debounce(() => setSearch(e.target.value), DELAY);
-  }
+  };
 
   return {
     dataProfile,
-
-    dataEventsSearch,
-    isLoadingEventsSearch,
-    isRefetchingEventsSearch,
+    dataMoviesSearch,
+    isLoadingMoviesSearch,
+    isRefetchingMoviesSearch,
     handleSearch,
     search,
     setSearch,
-  }
-}
+  };
+};
 
-export default useLandingPageLayoutNavbar
+export default useLandingPageLayoutNavbar;

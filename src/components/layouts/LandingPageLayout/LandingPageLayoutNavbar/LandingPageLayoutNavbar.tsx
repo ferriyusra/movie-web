@@ -27,16 +27,16 @@ import { CiSearch } from "react-icons/ci";
 import { signOut, useSession } from "next-auth/react";
 import useLandingPageLayoutNavbar from "./useLandingPageLayoutNavbar";
 import { Fragment } from "react";
-import { IEvent } from "@/types/Event";
+import { IMovie } from "@/types/Movie";
 
 const LandingPageLayoutNavbar = () => {
   const router = useRouter();
   const session = useSession();
   const {
     dataProfile,
-    dataEventsSearch,
-    isLoadingEventsSearch,
-    isRefetchingEventsSearch,
+    dataMoviesSearch,
+    isLoadingMoviesSearch,
+    isRefetchingMoviesSearch,
     handleSearch,
     search,
     setSearch,
@@ -76,29 +76,31 @@ const LandingPageLayoutNavbar = () => {
           <Input
             isClearable
             className="w-[300px]"
-            placeholder="Cari Acara..."
+            placeholder="Search movies..."
             startContent={<CiSearch />}
             onClear={() => setSearch("")}
             onChange={handleSearch}
           />
           {search !== "" && (
             <Listbox
-              items={dataEventsSearch?.data || []}
+              items={dataMoviesSearch?.data || []}
               className="absolute right-0 top-12 rounded-xl border bg-white"
             >
-              {!isRefetchingEventsSearch && !isLoadingEventsSearch ? (
-                (item: IEvent) => (
-                  <ListboxItem key={item._id} href={`/event/${item.slug}`}>
+              {!isRefetchingMoviesSearch && !isLoadingMoviesSearch ? (
+                (item: IMovie) => (
+                  <ListboxItem key={item.id} href={`/movies/${item.id}`}>
                     <div className="flex items-center gap-2">
-                      <Image
-                        src={`${item.banner}`}
-                        alt={`${item.name}`}
-                        className="w-2/5 rounded-md"
-                        width={100}
-                        height={40}
-                      />
+                      {item.posterUrl && (
+                        <Image
+                          src={item.posterUrl}
+                          alt={item.title}
+                          className="w-2/5 rounded-md"
+                          width={100}
+                          height={40}
+                        />
+                      )}
                       <p className="line-clamp-2 w-3/5 text-wrap">
-                        {item.name}
+                        {item.title}
                       </p>
                     </div>
                   </ListboxItem>
@@ -115,21 +117,20 @@ const LandingPageLayoutNavbar = () => {
           <NavbarItem className="hidden lg:block">
             <Dropdown>
               <DropdownTrigger>
-                <Avatar
-                  src={dataProfile?.profilePicture}
-                  className="cursor-pointer"
-                  showFallback
-                />
+                <Avatar className="cursor-pointer" showFallback />
               </DropdownTrigger>
               <DropdownMenu>
                 <DropdownItem
                   key="admin"
-                  href="/admin/event"
+                  href="/admin/movies"
                   className={cn({
                     hidden: dataProfile?.role !== "admin",
                   })}
                 >
                   Admin
+                </DropdownItem>
+                <DropdownItem key="reservations" href="/member/reservations">
+                  My Reservations
                 </DropdownItem>
                 <DropdownItem key="profile" href="/member/profile">
                   Profile
@@ -181,10 +182,18 @@ const LandingPageLayoutNavbar = () => {
                 })}
               >
                 <Link
-                  href="/admin/event"
+                  href="/admin/movies"
                   className="font-medium text-default-700 hover:text-danger"
                 >
                   Admin
+                </Link>
+              </NavbarMenuItem>
+              <NavbarMenuItem>
+                <Link
+                  className="font-medium text-default-700 hover:text-danger"
+                  href="/member/reservations"
+                >
+                  My Reservations
                 </Link>
               </NavbarMenuItem>
               <NavbarMenuItem>

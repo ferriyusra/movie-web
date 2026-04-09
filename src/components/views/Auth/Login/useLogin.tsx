@@ -8,12 +8,12 @@ import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import { ToasterContext } from "@/contexts/ToasterContext";
 
-
 const loginSchema = yup.object().shape({
-  identifier: yup.string().required("Mohon masukkan nama lengkap atau email"),
-  password: yup
+  email: yup
     .string()
-    .required("Mohon masukkan kata sandi"),
+    .email("Please enter a valid email")
+    .required("Please enter your email"),
+  password: yup.string().required("Please enter your password"),
 });
 
 const useLogin = () => {
@@ -29,7 +29,6 @@ const useLogin = () => {
     handleSubmit,
     formState: { errors },
     reset,
-    setError,
   } = useForm({
     resolver: yupResolver(loginSchema),
   });
@@ -38,27 +37,27 @@ const useLogin = () => {
     const result = await signIn("credentials", {
       ...payload,
       redirect: false,
-      callbackUrl
+      callbackUrl,
     });
 
     if (result?.error && result?.status === 401) {
-      throw new Error("Gagal Login!")
+      throw new Error("Login failed!");
     }
   };
 
   const { mutate: mutateLogin, isPending: isPendingLogin } = useMutation({
     mutationFn: loginService,
-    onError: (error) => {
+    onError: () => {
       setToaster({
         type: "error",
-        message: "Nama Pengguna/Email atau Kata Sandi Salah!",
+        message: "Invalid email or password!",
       });
     },
     onSuccess: () => {
       reset();
       setToaster({
         type: "success",
-        message: "Login Berhasil!",
+        message: "Login successful!",
       });
       router.push(callbackUrl);
     },
