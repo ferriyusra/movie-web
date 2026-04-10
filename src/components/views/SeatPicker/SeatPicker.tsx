@@ -29,12 +29,17 @@ const SeatPicker = () => {
     showtime,
     seats,
     isLoading,
+    isAuthenticated,
     selectedSeatIds,
     reservedSeatIds,
     handleSeatClick,
+    handleBookClick,
     totalAmount,
     confirmOpen,
     setConfirmOpen,
+    loginPromptOpen,
+    setLoginPromptOpen,
+    handleGoToLogin,
     mutateBook,
     isPendingBook,
     bookingSuccess,
@@ -228,12 +233,14 @@ const SeatPicker = () => {
                 size="lg"
                 fullWidth
                 isDisabled={selectedSeatIds.size === 0}
-                onPress={() => setConfirmOpen(true)}
+                onPress={handleBookClick}
                 className="mt-1"
               >
-                {selectedSeatIds.size > 0
-                  ? `Book ${selectedSeatIds.size} Seat${selectedSeatIds.size > 1 ? "s" : ""}`
-                  : "Select Seats"}
+                {selectedSeatIds.size === 0
+                  ? "Select Seats"
+                  : !isAuthenticated
+                    ? `Login to Book ${selectedSeatIds.size} Seat${selectedSeatIds.size > 1 ? "s" : ""}`
+                    : `Book ${selectedSeatIds.size} Seat${selectedSeatIds.size > 1 ? "s" : ""}`}
               </Button>
             </CardBody>
           </Card>
@@ -447,6 +454,36 @@ const SeatPicker = () => {
               ) : (
                 `Pay ${formatCurrency(totalAmount)}`
               )}
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+      {/* ── Login prompt modal ── */}
+      <Modal
+        isOpen={loginPromptOpen}
+        onClose={() => setLoginPromptOpen(false)}
+      >
+        <ModalContent>
+          <ModalHeader>Login Required</ModalHeader>
+          <ModalBody>
+            <p className="text-default-600">
+              You need to be logged in to book seats. Please login or create an
+              account to continue with your reservation.
+            </p>
+            <p className="text-sm text-default-400">
+              Your seat selection will be waiting for you when you get back.
+            </p>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              variant="light"
+              onPress={() => setLoginPromptOpen(false)}
+            >
+              Continue Browsing
+            </Button>
+            <Button color="danger" onPress={handleGoToLogin}>
+              Login to Book
             </Button>
           </ModalFooter>
         </ModalContent>
