@@ -19,6 +19,7 @@ import {
   FaCalendarDay,
   FaCouch,
   FaTicket,
+  FaStar,
 } from "react-icons/fa6";
 import SeatGrid from "@/components/ui/SeatGrid";
 import useSeatPicker from "./useSeatPicker";
@@ -321,42 +322,63 @@ const SeatPicker = () => {
       </section>
 
       {/* ── Seat type guide ── */}
-      <section className="border-t border-default-100">
-        <div className="mx-auto grid max-w-6xl gap-4 px-6 py-8 sm:grid-cols-3">
-          {[
-            {
-              type: "Standard",
-              desc: "Regular comfortable seats with great view of the screen.",
-              color: "bg-success-100 text-success-700",
-            },
-            {
-              type: "Premium",
-              desc: "Extra legroom and wider seats in the center rows for the best experience.",
-              color: "bg-yellow-50 text-yellow-700 ring-1 ring-yellow-300/40",
-            },
-            {
-              type: "Accessible",
-              desc: "Wheelchair-accessible seats with easy aisle access.",
-              color: "bg-blue-50 text-blue-700",
-            },
-          ].map((item) => (
-            <div
-              key={item.type}
-              className="flex items-start gap-3 rounded-lg border border-default-100 p-4"
-            >
+      <section className="border-t border-default-100 bg-default-50">
+        <div className="mx-auto max-w-6xl px-6 py-10">
+          <h3 className="mb-5 text-sm font-semibold uppercase tracking-wider text-default-500">
+            Seat Types
+          </h3>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {[
+              {
+                type: "Standard",
+                icon: <FaCouch />,
+                desc: "Regular comfortable seats with great view of the screen.",
+                iconBg: "bg-success-100 text-success-600",
+                badgeColor: "bg-success-100 text-success-600",
+                badgeLabel: "Regular",
+              },
+              {
+                type: "Premium",
+                icon: <FaStar />,
+                desc: "Extra legroom and wider seats in the center rows for the best experience.",
+                iconBg: "bg-yellow-100 text-yellow-600",
+                badgeColor: "bg-yellow-100 text-yellow-700",
+                badgeLabel: "Best Value",
+              },
+              {
+                type: "Accessible",
+                icon: <FaCouch />,
+                desc: "Wheelchair-accessible seats with easy aisle access.",
+                iconBg: "bg-blue-100 text-blue-600",
+                badgeColor: "bg-blue-100 text-blue-600",
+                badgeLabel: "Wheelchair",
+              },
+            ].map((item) => (
               <div
-                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-t-lg text-[10px] font-semibold ${item.color}`}
+                key={item.type}
+                className="flex items-start gap-4 rounded-xl border border-default-200 bg-white p-5"
               >
-                1
+                <div
+                  className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-lg ${item.iconBg}`}
+                >
+                  {item.icon}
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm font-semibold">{item.type}</p>
+                    <span
+                      className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${item.badgeColor}`}
+                    >
+                      {item.badgeLabel}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-xs leading-relaxed text-default-500">
+                    {item.desc}
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="text-sm font-semibold">{item.type}</p>
-                <p className="text-xs leading-relaxed text-default-400">
-                  {item.desc}
-                </p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
