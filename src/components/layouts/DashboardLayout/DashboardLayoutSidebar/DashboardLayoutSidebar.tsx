@@ -20,61 +20,81 @@ interface PropTypes {
 }
 
 const DashboardLayoutSidebar = (props: PropTypes) => {
-
   const { sidebarItems, isOpen } = props;
   const router = useRouter();
 
+  const isActive = (href: string) =>
+    router.pathname === href || router.pathname.startsWith(href + "/");
 
   return (
-    <div className={cn("fixed z-50 flex h-screen w-full max-w-[300px] -translate-x-full flex-col justify-between border-r-1 border-default-200 bg-white px-4 py-6 transition-all lg:relative lg:translate-x-0", { "translate-x-0": isOpen })}>
+    <div
+      className={cn(
+        "fixed z-50 flex h-screen w-full max-w-[260px] -translate-x-full flex-col justify-between border-r border-default-100 bg-white px-3 py-5 transition-all lg:relative lg:translate-x-0",
+        { "translate-x-0": isOpen },
+      )}
+    >
       <div>
-        <div className="flex justify-center w-full">
+        <Link href="/" className="mb-6 flex items-center px-3">
           <Image
             src="/images/general/logo.svg"
-            alt="logo"
-            width={100}
-            height={60}
-            className="mb-6 w-32"
-            onClick={() => router.push('/')}
+            alt="Cinema"
+            width={80}
+            height={40}
           />
-
-        </div>
+        </Link>
         <Listbox
           items={sidebarItems}
-          variant="solid"
+          variant="flat"
           aria-label="Dashboard Menu"
+          className="gap-1 p-0"
         >
           {(item) => (
             <ListboxItem
               key={item.key}
-              className={cn('my-1 h-12 text-2xl', {
-                "bg-danger-500 text-white": router.pathname.startsWith(item.href)
-              })}
-              startContent={item.icon}
+              className={cn(
+                "my-0.5 h-10 rounded-lg px-3 text-sm font-medium text-default-600 transition-colors",
+                {
+                  "bg-danger-50 font-semibold text-danger-600": isActive(
+                    item.href,
+                  ),
+                  "hover:bg-default-100": !isActive(item.href),
+                },
+              )}
+              startContent={
+                <span
+                  className={cn("text-lg", {
+                    "text-danger-500": isActive(item.href),
+                    "text-default-400": !isActive(item.href),
+                  })}
+                >
+                  {item.icon}
+                </span>
+              }
               textValue={item.label}
               aria-labelledby={item.label}
               aria-describedby={item.label}
               as={Link}
               href={item.href}
             >
-              <p className="text-small">{item.label}</p>
+              <span>{item.label}</span>
             </ListboxItem>
           )}
         </Listbox>
       </div>
-      <div className="flex items-center p-1">
+      <div className="px-1">
         <Button
           color="danger"
           fullWidth
           variant="light"
-          className="flex justify-start rounded-lg px-2 py-1.5"
-          size="lg"
+          className="h-10 justify-start rounded-lg px-3 text-sm font-medium"
           onPress={() => signOut()}
-        > <CiLogout /> Logout
+          startContent={<CiLogout className="text-lg" />}
+        >
+          Logout
         </Button>
       </div>
-    </div >
-  )
-}
+    </div>
+  );
+};
 
 export default DashboardLayoutSidebar;
