@@ -15,8 +15,8 @@ import {
   TableHeader,
   TableRow,
 } from "@heroui/react";
-import { ChangeEvent, Key, ReactNode, useMemo } from "react";
-import { CiSearch } from "react-icons/ci";
+import { Key, ReactNode, useMemo } from "react";
+import { FaMagnifyingGlass, FaPlus } from "react-icons/fa6";
 
 interface PropTypes {
   buttonTopContentLabel?: string;
@@ -32,7 +32,6 @@ interface PropTypes {
 }
 
 const DataTable = (props: PropTypes) => {
-
   const {
     currentLimit,
     currentPage,
@@ -57,19 +56,32 @@ const DataTable = (props: PropTypes) => {
 
   const TopContent = useMemo(() => {
     return (
-      <div className="flex flex-col-reverse items-start justify-between gap-y-4 lg:flex-row lg:items-center">
+      <div className="flex flex-col-reverse items-start justify-between gap-y-3 lg:flex-row lg:items-center">
         {showSearch && (
           <Input
             isClearable
-            className="w-full sm:max-w-[24%]"
-            placeholder="Search by name"
-            startContent={<CiSearch />}
+            className="w-full sm:max-w-xs"
+            placeholder="Search..."
+            size="sm"
+            radius="lg"
+            startContent={
+              <FaMagnifyingGlass className="text-xs text-default-400" />
+            }
+            classNames={{
+              inputWrapper: "bg-default-100 border-0 h-9",
+            }}
             onClear={handleClearSearch}
             onChange={handleSearch}
           />
         )}
         {buttonTopContentLabel && (
-          <Button color="danger" onPress={onClickButtonTopContent}>
+          <Button
+            color="danger"
+            size="sm"
+            onPress={onClickButtonTopContent}
+            startContent={<FaPlus className="text-xs" />}
+            className="font-medium"
+          >
             {buttonTopContentLabel}
           </Button>
         )}
@@ -89,11 +101,13 @@ const DataTable = (props: PropTypes) => {
           <Select
             disallowEmptySelection
             className="hidden max-w-36 lg:block"
-            size="md"
+            size="sm"
             selectedKeys={[`${currentLimit}`]}
             selectionMode="single"
             onChange={handleChangeLimit}
-            startContent={<p className="text-small">Show:</p>}
+            startContent={
+              <p className="text-xs text-default-400">Show:</p>
+            }
           >
             {LIMIT_LISTS.map((item) => (
               <SelectItem key={item.value} value={item.value}>
@@ -111,11 +125,18 @@ const DataTable = (props: PropTypes) => {
             total={totalPages}
             onChange={handleChangePage}
             loop
+            size="sm"
           />
         )}
       </div>
     );
-  }, [currentLimit, currentPage, totalPages, handleChangeLimit, handleChangePage]);
+  }, [
+    currentLimit,
+    currentPage,
+    totalPages,
+    handleChangeLimit,
+    handleChangePage,
+  ]);
 
   return (
     <Table
@@ -125,7 +146,11 @@ const DataTable = (props: PropTypes) => {
       bottomContentPlacement="outside"
       classNames={{
         base: "max-w-full",
-        wrapper: cn({ "overflow-x-hidden": isLoading })
+        wrapper: cn(
+          "border border-default-100 shadow-none bg-white",
+          { "overflow-x-hidden": isLoading },
+        ),
+        th: "bg-default-50 text-default-500 text-xs font-semibold uppercase tracking-wider",
       }}
     >
       <TableHeader columns={columns}>
@@ -141,7 +166,7 @@ const DataTable = (props: PropTypes) => {
         emptyContent={emptyContent}
         isLoading={isLoading}
         loadingContent={
-          <div className="flex h-full w-full items-center justify-center bg-foreground-700/30 backdrop-blur-sm">
+          <div className="flex h-full w-full items-center justify-center bg-white/60 backdrop-blur-sm">
             <Spinner color="danger" />
           </div>
         }

@@ -1,5 +1,11 @@
-import { Dropdown, DropdownTrigger, Button, DropdownMenu, DropdownItem } from "@heroui/react";
-import { CiMenuKebab } from "react-icons/ci";
+import {
+  Dropdown,
+  DropdownTrigger,
+  Button,
+  DropdownMenu,
+  DropdownItem,
+} from "@heroui/react";
+import { FaEllipsisVertical, FaPen, FaTrash } from "react-icons/fa6";
 
 interface PropTypes {
   onPressButtonDetail: () => void;
@@ -8,35 +14,41 @@ interface PropTypes {
 }
 
 const DropdownAction = (props: PropTypes) => {
-
-  const { onPressButtonDetail, onPressButtonDelete, hideButtonDelete = false } = props
+  const {
+    onPressButtonDetail,
+    onPressButtonDelete,
+    hideButtonDelete = false,
+  } = props;
 
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Button isIconOnly size="sm" variant="light">
-          <CiMenuKebab className="text-default-700" />
+        <Button isIconOnly size="sm" variant="light" radius="full">
+          <FaEllipsisVertical className="text-xs text-default-500" />
         </Button>
       </DropdownTrigger>
       <DropdownMenu>
         <DropdownItem
-          key="detail-event-button"
+          key="detail"
           onPress={onPressButtonDetail}
+          startContent={<FaPen className="text-xs text-default-400" />}
         >
-          Detail
+          Edit
         </DropdownItem>
         {!hideButtonDelete ? (
           <DropdownItem
-            key="delete-event"
+            key="delete"
             onPress={onPressButtonDelete}
             className="text-danger-500"
+            color="danger"
+            startContent={<FaTrash className="text-xs" />}
           >
             Delete
           </DropdownItem>
         ) : null}
       </DropdownMenu>
     </Dropdown>
-  )
-}
+  );
+};
 
-export default DropdownAction
+export default DropdownAction;

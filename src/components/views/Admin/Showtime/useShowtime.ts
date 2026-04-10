@@ -6,9 +6,7 @@ const useAdminShowtime = () => {
   const [selectedId, setSelectedId] = useState<string>("");
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(
-    new Date().toISOString().split("T")[0],
-  );
+  const [selectedDate, setSelectedDate] = useState("2026-04-10");
 
   const getShowtimes = async () => {
     const { data } = await showtimeServices.getShowtimes(
