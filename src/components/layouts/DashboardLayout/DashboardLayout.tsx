@@ -2,7 +2,8 @@ import PageHead from "@/components/commons/PageHead";
 import { Fragment, ReactNode, useState } from "react";
 import DashboardLayoutSidebar from "./DashboardLayoutSidebar";
 import { SIDEBAR_ADMIN, SIDEBAR_MEMBER } from "./DashboardLayout.constans";
-import { NavbarMenuToggle } from "@heroui/react";
+import { Button } from "@heroui/react";
+import { CiMenuBurger } from "react-icons/ci";
 
 interface PropTypes {
   children: ReactNode;
@@ -31,11 +32,16 @@ const DashboardLayout = (props: PropTypes) => {
                 <p className="text-xs text-default-400">{description}</p>
               )}
             </div>
-            <NavbarMenuToggle
+            <Button
+              isIconOnly
+              variant="light"
+              size="sm"
               aria-label={open ? "Close menu" : "Open menu"}
-              onClick={() => setOpen(!open)}
+              onPress={() => setOpen(!open)}
               className="lg:hidden"
-            />
+            >
+              <CiMenuBurger className="text-lg" />
+            </Button>
           </header>
           <main className="px-6 py-6 lg:px-8">{children}</main>
         </div>
