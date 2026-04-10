@@ -11,7 +11,6 @@ import {
   ModalHeader,
   Spinner,
 } from "@heroui/react";
-import Image from "next/image";
 import Link from "next/link";
 import {
   FaCircleCheck,
@@ -116,22 +115,12 @@ const SeatPicker = () => {
       {/* ── Top info bar ── */}
       <section className="border-b border-default-100 bg-default-50">
         <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-5 sm:flex-row sm:items-center sm:gap-6">
-          {/* Movie poster + title */}
-          {showtime.movie?.posterUrl && (
-            <Image
-              src={showtime.movie.posterUrl}
-              alt={showtime.movie.title}
-              width={48}
-              height={72}
-              className="hidden aspect-[2/3] w-12 rounded-md object-cover sm:block"
-            />
-          )}
           <div className="flex-1">
-            <h1 className="text-lg font-bold">{showtime.movie?.title}</h1>
+            <h1 className="text-lg font-bold">{showtime.movieTitle}</h1>
             <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-default-500">
               <span className="flex items-center gap-1">
                 <FaLocationDot className="text-danger-400" />
-                {showtime.theater?.name}
+                {showtime.theaterName}
               </span>
               <span className="flex items-center gap-1">
                 <FaCalendarDay className="text-danger-400" />
@@ -254,41 +243,38 @@ const SeatPicker = () => {
       {/* ── Movie info + tips ── */}
       <section className="border-t border-default-100 bg-default-50">
         <div className="mx-auto grid max-w-6xl gap-8 px-6 py-10 md:grid-cols-2">
-          {/* Movie info card */}
-          <div className="flex gap-4">
-            {showtime.movie?.posterUrl && (
-              <Image
-                src={showtime.movie.posterUrl}
-                alt={showtime.movie.title}
-                width={120}
-                height={180}
-                className="aspect-[2/3] w-28 shrink-0 rounded-lg object-cover shadow-md"
-              />
-            )}
-            <div className="flex flex-col gap-2">
-              <h3 className="text-lg font-bold">{showtime.movie?.title}</h3>
-              {showtime.movie?.genres && (
-                <div className="flex flex-wrap gap-1">
-                  {showtime.movie.genres.map((g: { id: string; name: string }) => (
-                    <Chip key={g.id} size="sm" variant="flat" color="danger">
-                      {g.name}
-                    </Chip>
-                  ))}
-                </div>
-              )}
-              <div className="flex flex-wrap gap-3 text-xs text-default-500">
-                {showtime.movie?.durationMin && (
-                  <span className="flex items-center gap-1">
-                    <FaClock className="text-danger-400" />
-                    {showtime.movie.durationMin} min
-                  </span>
-                )}
-                {showtime.movie?.language && (
-                  <span>{showtime.movie.language}</span>
-                )}
-              </div>
-              <p className="mt-1 line-clamp-3 text-xs leading-relaxed text-default-400">
-                {showtime.movie?.description}
+          {/* Showtime info card */}
+          <div className="flex flex-col gap-3">
+            <h3 className="text-lg font-bold">{showtime.movieTitle}</h3>
+            <div className="flex flex-col gap-2 text-sm text-default-500">
+              <p className="flex items-center gap-2">
+                <FaLocationDot className="text-xs text-danger-400" />
+                {showtime.theaterName}
+              </p>
+              <p className="flex items-center gap-2">
+                <FaCalendarDay className="text-xs text-danger-400" />
+                {new Date(showtime.startTime).toLocaleDateString("en-US", {
+                  weekday: "long",
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}
+              </p>
+              <p className="flex items-center gap-2">
+                <FaClock className="text-xs text-danger-400" />
+                {new Date(showtime.startTime).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}{" "}
+                &mdash;{" "}
+                {new Date(showtime.endTime).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </p>
+              <p className="flex items-center gap-2">
+                <FaTicket className="text-xs text-danger-400" />
+                {formatCurrency(showtime.price)} per seat
               </p>
             </div>
           </div>
@@ -381,21 +367,11 @@ const SeatPicker = () => {
             </span>
           </ModalHeader>
           <ModalBody>
-            <div className="flex gap-4">
-              {showtime.movie?.posterUrl && (
-                <Image
-                  src={showtime.movie.posterUrl}
-                  alt={showtime.movie.title}
-                  width={80}
-                  height={120}
-                  className="aspect-[2/3] w-20 shrink-0 rounded-lg object-cover"
-                />
-              )}
-              <div className="flex flex-col gap-2 text-sm">
-                <p className="text-base font-bold">{showtime.movie?.title}</p>
+            <div className="flex flex-col gap-2 text-sm">
+                <p className="text-base font-bold">{showtime.movieTitle}</p>
                 <p className="flex items-center gap-1.5 text-default-500">
                   <FaLocationDot className="text-xs text-danger-400" />
-                  {showtime.theater?.name}
+                  {showtime.theaterName}
                 </p>
                 <p className="flex items-center gap-1.5 text-default-500">
                   <FaCalendarDay className="text-xs text-danger-400" />
@@ -418,7 +394,6 @@ const SeatPicker = () => {
                     minute: "2-digit",
                   })}
                 </p>
-              </div>
             </div>
 
             <Divider className="my-2" />

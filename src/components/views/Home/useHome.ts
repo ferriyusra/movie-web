@@ -4,13 +4,9 @@ import genreServices from "@/services/genre.service";
 import showtimeServices from "@/services/showtime.service";
 import { IMovie } from "@/types/Movie";
 import { IGenre } from "@/types/Genre";
-import { IShowtimeDetail } from "@/types/Showtime";
+import { IShowtime } from "@/types/Showtime";
 
-const getTomorrow = () => {
-  const d = new Date();
-  d.setDate(d.getDate() + 1);
-  return d.toISOString().split("T")[0];
-};
+const DEFAULT_SHOWTIME_DATE = "2026-04-10";
 
 const useHome = () => {
   const { data: moviesData, isLoading: isLoadingMovies } = useQuery({
@@ -33,9 +29,9 @@ const useHome = () => {
     queryKey: ["HomeShowtimes"],
     queryFn: async () => {
       const { data } = await showtimeServices.getShowtimes(
-        `date=${getTomorrow()}`,
+        `date=${DEFAULT_SHOWTIME_DATE}`,
       );
-      return data.data as IShowtimeDetail[];
+      return data.data as IShowtime[];
     },
   });
 

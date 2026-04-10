@@ -25,13 +25,11 @@ const AdminShowtime = () => {
 
   const renderCell = useCallback(
     (item: Record<string, unknown>, columnKey: Key) => {
-      const movie = item.movie as { title: string } | undefined;
-      const theater = item.theater as { name: string } | undefined;
       switch (columnKey) {
         case "movie":
-          return <p className="font-medium">{movie?.title || "-"}</p>;
+          return <p className="font-medium">{(item.movieTitle as string) || "-"}</p>;
         case "theater":
-          return <p>{theater?.name || "-"}</p>;
+          return <p>{(item.theaterName as string) || "-"}</p>;
         case "startTime":
           return (
             <p className="text-sm">

@@ -4,7 +4,7 @@ import Link from "next/link";
 import useMovieDetail from "./useMovieDetail";
 import MovieCard from "@/components/ui/MovieCard";
 import { IMovie } from "@/types/Movie";
-import { IShowtimeDetail } from "@/types/Showtime";
+import { IShowtime } from "@/types/Showtime";
 import { formatCurrency } from "@/utils/currency";
 import {
   FaStar,
@@ -269,7 +269,7 @@ const MovieDetail = () => {
             </Card>
           ) : (
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {dataShowtimes.map((showtime: IShowtimeDetail) => (
+              {dataShowtimes.map((showtime: IShowtime) => (
                 <Card
                   key={showtime.id}
                   className="border border-default-200 bg-white transition-shadow hover:shadow-md"
@@ -291,11 +291,9 @@ const MovieDetail = () => {
                     </div>
 
                     <div className="flex flex-1 flex-col gap-1">
-                      {showtime.theater && (
-                        <p className="text-sm font-medium">
-                          {showtime.theater.name}
-                        </p>
-                      )}
+                      <p className="text-sm font-medium">
+                        {showtime.theaterName}
+                      </p>
                       <p className="text-sm font-semibold text-danger-500">
                         {formatCurrency(showtime.price)}
                       </p>

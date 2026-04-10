@@ -1,19 +1,13 @@
-import { IMovie } from "./Movie";
-import { ITheater } from "./Theater";
-
 interface IShowtime {
   id: string;
   movieId: string;
+  movieTitle: string;
   theaterId: string;
+  theaterName: string;
   startTime: string;
   endTime: string;
   price: number;
   availableSeats: number;
-}
-
-interface IShowtimeDetail extends IShowtime {
-  movie: IMovie;
-  theater: ITheater;
 }
 
 interface IShowtimeForm {
@@ -23,4 +17,4 @@ interface IShowtimeForm {
   price: number;
 }
 
-export type { IShowtime, IShowtimeDetail, IShowtimeForm };
+export type { IShowtime, IShowtimeForm };

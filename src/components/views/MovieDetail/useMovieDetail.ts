@@ -3,19 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import movieServices from "@/services/movie.service";
 import showtimeServices from "@/services/showtime.service";
 import { useRouter } from "next/router";
-import { IShowtimeDetail } from "@/types/Showtime";
+import { IShowtime } from "@/types/Showtime";
 import { IMovie } from "@/types/Movie";
-
-const getTomorrow = () => {
-  const d = new Date();
-  d.setDate(d.getDate() + 1);
-  return d.toISOString().split("T")[0];
-};
 
 const useMovieDetail = () => {
   const router = useRouter();
   const { id } = router.query;
-  const [selectedDate, setSelectedDate] = useState(getTomorrow);
+  const [selectedDate, setSelectedDate] = useState("2026-04-10");
 
   const { data: dataMovie, isLoading: isLoadingMovie } = useQuery({
     queryKey: ["Movie", id],
@@ -32,7 +26,7 @@ const useMovieDetail = () => {
       const { data } = await showtimeServices.getShowtimes(
         `date=${selectedDate}`,
       );
-      return data.data as IShowtimeDetail[];
+      return data.data as IShowtime[];
     },
     enabled: !!selectedDate,
   });

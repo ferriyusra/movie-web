@@ -5,7 +5,7 @@ import useHome from "./useHome";
 import MovieCard, { MovieCardSkeleton } from "@/components/ui/MovieCard";
 import { IMovie } from "@/types/Movie";
 import { IGenre } from "@/types/Genre";
-import { IShowtimeDetail } from "@/types/Showtime";
+import { IShowtime } from "@/types/Showtime";
 import { formatCurrency } from "@/utils/currency";
 import {
   FaPlay,
@@ -203,30 +203,19 @@ const Home = () => {
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {upcomingShowtimes.map((showtime: IShowtimeDetail) => (
+              {upcomingShowtimes.map((showtime: IShowtime) => (
                 <Card
                   key={showtime.id}
                   className="border border-default-100 transition-shadow hover:shadow-md"
                 >
                   <CardBody className="flex flex-row items-center gap-4 p-4">
-                    {/* Poster thumbnail */}
-                    {showtime.movie?.posterUrl && (
-                      <Image
-                        src={showtime.movie.posterUrl}
-                        alt={showtime.movie.title}
-                        width={48}
-                        height={72}
-                        className="aspect-[2/3] w-12 shrink-0 rounded-md object-cover"
-                      />
-                    )}
-
                     {/* Details */}
                     <div className="flex flex-1 flex-col gap-0.5 overflow-hidden">
                       <p className="truncate text-sm font-semibold">
-                        {showtime.movie?.title}
+                        {showtime.movieTitle}
                       </p>
                       <p className="text-xs text-default-500">
-                        {showtime.theater?.name}
+                        {showtime.theaterName}
                       </p>
                       <div className="flex items-center gap-3 text-xs text-default-400">
                         <span className="font-medium text-danger-500">
@@ -261,78 +250,125 @@ const Home = () => {
         </section>
       )}
 
-      {/* ── How it Works ── */}
-      <section className="px-6 py-16">
-        <div className="mx-auto max-w-7xl">
-          <p className="mb-1 text-center text-sm font-semibold uppercase tracking-widest text-danger-500">
-            Simple &amp; Fast
-          </p>
-          <h2 className="mb-12 text-center text-2xl font-bold lg:text-3xl">
-            How It Works
-          </h2>
-          <div className="grid gap-8 sm:grid-cols-3">
-            {[
-              {
-                icon: <FaFilm className="text-2xl text-danger-500" />,
-                title: "Pick a Movie",
-                desc: "Browse our catalog with genre filters and find the perfect film for your mood.",
-              },
-              {
-                icon: <FaCouch className="text-2xl text-danger-500" />,
-                title: "Choose Your Seats",
-                desc: "Select your favorite seats from our interactive seat map with real-time availability.",
-              },
-              {
-                icon: <FaTicket className="text-2xl text-danger-500" />,
-                title: "Confirm & Enjoy",
-                desc: "Complete your reservation and get your booking reference instantly. That's it!",
-              },
-            ].map((item) => (
-              <div
-                key={item.title}
-                className="flex flex-col items-center gap-4 text-center"
-              >
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-danger-50">
-                  {item.icon}
-                </div>
-                <h3 className="text-lg font-semibold">{item.title}</h3>
-                <p className="max-w-xs text-sm leading-relaxed text-default-500">
-                  {item.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ── How it Works + CTA (merged dark section) ── */}
+      <section className="relative overflow-hidden bg-gray-950 px-6 py-20 lg:py-28">
+        {/* BG effects */}
+        <div className="absolute -left-40 top-0 h-[600px] w-[600px] rounded-full bg-danger-500/[0.05] blur-[120px]" />
+        <div className="absolute -right-40 bottom-0 h-[500px] w-[500px] rounded-full bg-pink-500/[0.04] blur-[120px]" />
+        <div
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
 
-      {/* ── CTA Banner ── */}
-      <section className="bg-gray-950 px-6 py-20">
-        <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
-          <h2 className="text-3xl font-bold text-white lg:text-4xl">
-            Ready for Movie Night?
-          </h2>
-          <p className="max-w-xl text-white/60">
-            Sign up now to reserve your favorite seats in seconds. No lines, no
-            hassle — just pick, book, and enjoy the show.
-          </p>
-          <div className="flex gap-3">
-            <Button
-              as={Link}
-              href="/movies"
-              color="danger"
-              size="lg"
-            >
-              Browse Movies
-            </Button>
-            <Button
-              as={Link}
-              href="/auth/register"
-              variant="bordered"
-              size="lg"
-              className="border-white/30 text-white hover:border-white"
-            >
-              Create Account
-            </Button>
+        <div className="relative z-10 mx-auto max-w-6xl">
+          {/* How it works */}
+          <div className="mb-20">
+            <p className="mb-1 text-center text-sm font-semibold uppercase tracking-widest text-danger-400">
+              Simple &amp; Fast
+            </p>
+            <h2 className="mb-14 text-center text-2xl font-bold text-white lg:text-3xl">
+              How It Works
+            </h2>
+
+            <div className="grid gap-6 sm:grid-cols-3">
+              {[
+                {
+                  step: "1",
+                  icon: <FaFilm className="text-xl" />,
+                  title: "Pick a Movie",
+                  desc: "Browse our catalog with genre filters and find the perfect film for your mood.",
+                },
+                {
+                  step: "2",
+                  icon: <FaCouch className="text-xl" />,
+                  title: "Choose Your Seats",
+                  desc: "Select your favorite seats from our interactive seat map with real-time availability.",
+                },
+                {
+                  step: "3",
+                  icon: <FaTicket className="text-xl" />,
+                  title: "Confirm & Enjoy",
+                  desc: "Complete your reservation and get your booking reference instantly.",
+                },
+              ].map((item) => (
+                <div
+                  key={item.title}
+                  className="group flex flex-col items-center gap-5 rounded-2xl border border-white/5 bg-white/[0.02] px-6 py-8 text-center backdrop-blur-sm transition-colors hover:border-danger-500/20 hover:bg-white/[0.04]"
+                >
+                  <div className="relative">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-danger-500/10 text-danger-400 transition-colors group-hover:bg-danger-500/20">
+                      {item.icon}
+                    </div>
+                    <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-danger-500 text-[10px] font-bold text-white">
+                      {item.step}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-semibold text-white">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-white/40">
+                    {item.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="mx-auto mb-20 h-px w-1/3 bg-gradient-to-r from-transparent via-danger-500/20 to-transparent" />
+
+          {/* CTA */}
+          <div className="flex flex-col items-center gap-8 text-center">
+            <div className="flex divide-x divide-white/10 rounded-2xl border border-white/5 bg-white/[0.02] px-2 py-4 backdrop-blur-sm">
+              {[
+                { value: "8+", label: "Movies" },
+                { value: "3", label: "Theaters" },
+                { value: "200+", label: "Seats" },
+              ].map((stat) => (
+                <div key={stat.label} className="px-6 sm:px-10">
+                  <p className="text-2xl font-bold text-danger-400 sm:text-3xl">
+                    {stat.value}
+                  </p>
+                  <p className="mt-1 text-[10px] uppercase tracking-widest text-white/30">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <h2 className="max-w-2xl text-3xl font-bold leading-tight text-white lg:text-5xl">
+              Ready for
+              <span className="text-danger-400"> Movie Night</span>?
+            </h2>
+            <p className="max-w-lg leading-relaxed text-white/40">
+              Reserve your favorite seats in seconds. No lines, no hassle — just
+              pick, book, and enjoy the show.
+            </p>
+
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Button
+                as={Link}
+                href="/movies"
+                color="danger"
+                size="lg"
+                className="px-10 text-base font-semibold"
+                startContent={<FaPlay className="text-xs" />}
+              >
+                Browse Movies
+              </Button>
+              <Button
+                as={Link}
+                href="/auth/register"
+                size="lg"
+                className="border-white/10 bg-white/5 px-10 text-base font-semibold text-white backdrop-blur-sm hover:bg-white/10"
+              >
+                Create Free Account
+              </Button>
+            </div>
           </div>
         </div>
       </section>

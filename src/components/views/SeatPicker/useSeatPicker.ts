@@ -5,7 +5,7 @@ import showtimeServices from "@/services/showtime.service";
 import reservationServices from "@/services/reservation.service";
 import { ToasterContext } from "@/contexts/ToasterContext";
 import { ISeat } from "@/types/Theater";
-import { IShowtimeDetail } from "@/types/Showtime";
+import { IShowtime } from "@/types/Showtime";
 
 const MAX_SEATS = 10;
 
@@ -29,7 +29,7 @@ const useSeatPicker = () => {
       const { data } = await showtimeServices.getShowtimeById(
         showtimeId as string,
       );
-      return data.data as IShowtimeDetail;
+      return data.data as IShowtime;
     },
     enabled: !!showtimeId,
   });
