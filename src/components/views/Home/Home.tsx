@@ -46,8 +46,7 @@ const Home = () => {
                 <div className="hidden w-56 shrink-0 lg:block">
                   <Image
                     src={
-                      featuredMovie.posterUrl ||
-                      "/images/general/no-image.png"
+                      featuredMovie.posterUrl || "/images/general/no-image.png"
                     }
                     alt={featuredMovie.title}
                     width={224}
@@ -251,26 +250,18 @@ const Home = () => {
       )}
 
       {/* ── How it Works + CTA (merged dark section) ── */}
-      <section className="relative overflow-hidden bg-gray-950 px-6 py-20 lg:py-28">
+      <section className="relative overflow-hidden bg-white px-6 py-20 lg:py-28">
         {/* BG effects */}
-        <div className="absolute -left-40 top-0 h-[600px] w-[600px] rounded-full bg-danger-500/[0.05] blur-[120px]" />
-        <div className="absolute -right-40 bottom-0 h-[500px] w-[500px] rounded-full bg-pink-500/[0.04] blur-[120px]" />
-        <div
-          className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-          }}
-        />
+        <div className="absolute -left-40 top-0 h-[600px] w-[600px] rounded-full bg-danger-500/[0.04] blur-[120px]" />
+        <div className="absolute -right-40 bottom-0 h-[500px] w-[500px] rounded-full bg-pink-500/[0.03] blur-[120px]" />
 
         <div className="relative z-10 mx-auto max-w-6xl">
           {/* How it works */}
           <div className="mb-20">
-            <p className="mb-1 text-center text-sm font-semibold uppercase tracking-widest text-danger-400">
+            <p className="mb-1 text-center text-sm font-semibold uppercase tracking-widest text-danger-500">
               Simple &amp; Fast
             </p>
-            <h2 className="mb-14 text-center text-2xl font-bold text-white lg:text-3xl">
+            <h2 className="mb-14 text-center text-2xl font-bold text-gray-900 lg:text-3xl">
               How It Works
             </h2>
 
@@ -297,20 +288,20 @@ const Home = () => {
               ].map((item) => (
                 <div
                   key={item.title}
-                  className="group flex flex-col items-center gap-5 rounded-2xl border border-white/5 bg-white/[0.02] px-6 py-8 text-center backdrop-blur-sm transition-colors hover:border-danger-500/20 hover:bg-white/[0.04]"
+                  className="group flex flex-col items-center gap-5 rounded-2xl border border-default-200 bg-white px-6 py-8 text-center shadow-sm transition-all hover:border-danger-200 hover:shadow-md"
                 >
                   <div className="relative">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-danger-500/10 text-danger-400 transition-colors group-hover:bg-danger-500/20">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-danger-50 text-danger-500 transition-colors group-hover:bg-danger-100">
                       {item.icon}
                     </div>
                     <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-danger-500 text-[10px] font-bold text-white">
                       {item.step}
                     </span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white">
+                  <h3 className="text-lg font-semibold text-gray-900">
                     {item.title}
                   </h3>
-                  <p className="text-sm leading-relaxed text-white/40">
+                  <p className="text-sm leading-relaxed text-gray-500">
                     {item.desc}
                   </p>
                 </div>
@@ -319,32 +310,32 @@ const Home = () => {
           </div>
 
           {/* Divider */}
-          <div className="mx-auto mb-20 h-px w-1/3 bg-gradient-to-r from-transparent via-danger-500/20 to-transparent" />
+          <div className="mx-auto mb-20 h-px w-1/3 bg-gradient-to-r from-transparent via-danger-200 to-transparent" />
 
           {/* CTA */}
           <div className="flex flex-col items-center gap-8 text-center">
-            <div className="flex divide-x divide-white/10 rounded-2xl border border-white/5 bg-white/[0.02] px-2 py-4 backdrop-blur-sm">
+            <div className="flex divide-x divide-default-200 rounded-2xl border border-default-200 bg-default-50 px-2 py-4">
               {[
                 { value: "8+", label: "Movies" },
                 { value: "3", label: "Theaters" },
                 { value: "200+", label: "Seats" },
               ].map((stat) => (
                 <div key={stat.label} className="px-6 sm:px-10">
-                  <p className="text-2xl font-bold text-danger-400 sm:text-3xl">
+                  <p className="text-2xl font-bold text-danger-500 sm:text-3xl">
                     {stat.value}
                   </p>
-                  <p className="mt-1 text-[10px] uppercase tracking-widest text-white/30">
+                  <p className="mt-1 text-[10px] uppercase tracking-widest text-gray-400">
                     {stat.label}
                   </p>
                 </div>
               ))}
             </div>
 
-            <h2 className="max-w-2xl text-3xl font-bold leading-tight text-white lg:text-5xl">
+            <h2 className="max-w-2xl text-3xl font-bold leading-tight text-gray-900 lg:text-5xl">
               Ready for
-              <span className="text-danger-400"> Movie Night</span>?
+              <span className="text-danger-500"> Movie Night</span>?
             </h2>
-            <p className="max-w-lg leading-relaxed text-white/40">
+            <p className="max-w-lg leading-relaxed text-gray-500">
               Reserve your favorite seats in seconds. No lines, no hassle — just
               pick, book, and enjoy the show.
             </p>
@@ -364,7 +355,8 @@ const Home = () => {
                 as={Link}
                 href="/auth/register"
                 size="lg"
-                className="border-white/10 bg-white/5 px-10 text-base font-semibold text-white backdrop-blur-sm hover:bg-white/10"
+                variant="bordered"
+                className="border-default-300 px-10 text-base font-semibold text-gray-700 hover:border-danger-300 hover:text-danger-500"
               >
                 Create Free Account
               </Button>
