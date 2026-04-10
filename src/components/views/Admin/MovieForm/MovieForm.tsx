@@ -8,11 +8,12 @@ import {
   Spinner,
   Textarea,
 } from "@heroui/react";
-import { Controller } from "react-hook-form";
+import Image from "next/image";
+import { Controller, useWatch } from "react-hook-form";
 import useMovieForm from "./useMovieForm";
 import { IGenre } from "@/types/Genre";
 import Link from "next/link";
-import { FaArrowLeft } from "react-icons/fa6";
+import { FaArrowLeft, FaImage } from "react-icons/fa6";
 
 interface PropTypes {
   movieId?: string;
@@ -81,14 +82,45 @@ const MovieForm = ({ movieId }: PropTypes) => {
               name="posterUrl"
               control={control}
               render={({ field }) => (
-                <Input
-                  {...field}
-                  label="Poster URL"
-                  variant="bordered"
-                  size="sm"
-                  isInvalid={!!errors.posterUrl}
-                  errorMessage={errors.posterUrl?.message}
-                />
+                <div className="flex flex-col gap-3">
+                  <Input
+                    {...field}
+                    label="Poster URL"
+                    variant="bordered"
+                    size="sm"
+                    placeholder="https://example.com/poster.jpg"
+                    isInvalid={!!errors.posterUrl}
+                    errorMessage={errors.posterUrl?.message}
+                  />
+                  {field.value ? (
+                    <div className="flex items-start gap-3 rounded-lg border border-default-200 bg-default-50 p-3">
+                      <Image
+                        src={field.value}
+                        alt="Poster preview"
+                        width={80}
+                        height={120}
+                        className="aspect-[2/3] w-20 shrink-0 rounded-md object-cover"
+                      />
+                      <div className="flex flex-col gap-1">
+                        <p className="text-xs font-medium text-default-600">
+                          Poster Preview
+                        </p>
+                        <p className="line-clamp-2 break-all text-[11px] text-default-400">
+                          {field.value}
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center rounded-lg border border-dashed border-default-200 bg-default-50 py-6">
+                      <div className="flex flex-col items-center gap-1 text-default-300">
+                        <FaImage className="text-2xl" />
+                        <p className="text-xs">
+                          Enter a URL above to preview the poster
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
               )}
             />
             <div className="grid grid-cols-2 gap-4">
