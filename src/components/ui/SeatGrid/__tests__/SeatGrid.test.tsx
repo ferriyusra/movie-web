@@ -21,13 +21,13 @@ describe("SeatGrid", () => {
 
   it("renders row labels", () => {
     render(<SeatGrid seats={mockSeats} />);
-    expect(screen.getByText("A")).toBeInTheDocument();
-    expect(screen.getByText("B")).toBeInTheDocument();
+    expect(screen.getAllByText("A").length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText("B").length).toBeGreaterThanOrEqual(1);
   });
 
-  it("shows SCREEN label", () => {
+  it("shows Screen label", () => {
     render(<SeatGrid seats={mockSeats} />);
-    expect(screen.getByText("SCREEN")).toBeInTheDocument();
+    expect(screen.getByText("Screen")).toBeInTheDocument();
   });
 
   it("marks reserved seats", () => {
@@ -80,5 +80,6 @@ describe("SeatGrid", () => {
     expect(screen.getByText("Available")).toBeInTheDocument();
     expect(screen.getByText("Selected")).toBeInTheDocument();
     expect(screen.getByText("Reserved")).toBeInTheDocument();
+    expect(screen.getByText("Premium")).toBeInTheDocument();
   });
 });
