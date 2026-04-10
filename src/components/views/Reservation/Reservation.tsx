@@ -73,10 +73,13 @@ const Reservation = () => {
     <section>
       <div className="mb-4">
         <Select
-          className="max-w-xs"
+          className="max-w-[180px]"
           placeholder="All Statuses"
+          size="sm"
+          variant="bordered"
           selectedKeys={currentStatus ? [currentStatus] : []}
           onChange={(e) => handleChangeStatus(e.target.value)}
+          label="Status"
         >
           <SelectItem key="confirmed" value="confirmed">
             Confirmed

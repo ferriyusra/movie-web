@@ -1,5 +1,5 @@
 import { Key, useCallback } from "react";
-import { Input } from "@heroui/react";
+import { Chip, Input } from "@heroui/react";
 import DataTable from "@/components/ui/DataTable";
 import DropdownAction from "@/components/commons/DropdownAction";
 import { COLUMN_LISTS_SHOWTIME } from "./Showtime.constants";
@@ -27,19 +27,44 @@ const AdminShowtime = () => {
     (item: Record<string, unknown>, columnKey: Key) => {
       switch (columnKey) {
         case "movie":
-          return <p className="font-medium">{(item.movieTitle as string) || "-"}</p>;
+          return (
+            <p className="text-sm font-medium">
+              {(item.movieTitle as string) || "-"}
+            </p>
+          );
         case "theater":
-          return <p>{(item.theaterName as string) || "-"}</p>;
+          return (
+            <p className="text-sm text-default-600">
+              {(item.theaterName as string) || "-"}
+            </p>
+          );
         case "startTime":
           return (
             <p className="text-sm">
-              {new Date(item.startTime as string).toLocaleString()}
+              {new Date(item.startTime as string).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
             </p>
           );
         case "price":
-          return <p>{formatCurrency(item.price as number)}</p>;
+          return (
+            <p className="text-sm font-medium">
+              {formatCurrency(item.price as number)}
+            </p>
+          );
         case "availableSeats":
-          return <p>{item.availableSeats as number}</p>;
+          return (
+            <Chip
+              size="sm"
+              variant="flat"
+              color={
+                (item.availableSeats as number) > 0 ? "success" : "default"
+              }
+            >
+              {item.availableSeats as number}
+            </Chip>
+          );
         case "actions":
           return (
             <DropdownAction
@@ -63,11 +88,12 @@ const AdminShowtime = () => {
       <div className="mb-4">
         <Input
           type="date"
-          label="Filter by date"
           variant="bordered"
+          size="sm"
           value={selectedDate}
           onChange={(e) => setSelectedDate(e.target.value)}
-          className="max-w-xs"
+          className="max-w-[180px]"
+          label="Date"
         />
       </div>
       <DataTable
@@ -75,7 +101,7 @@ const AdminShowtime = () => {
         onClickButtonTopContent={() => setAddModalOpen(true)}
         columns={COLUMN_LISTS_SHOWTIME}
         data={dataShowtimes || []}
-        emptyContent="No showtimes found"
+        emptyContent="No showtimes found for this date"
         isLoading={isLoadingShowtimes}
         renderCell={renderCell}
         totalPages={1}
