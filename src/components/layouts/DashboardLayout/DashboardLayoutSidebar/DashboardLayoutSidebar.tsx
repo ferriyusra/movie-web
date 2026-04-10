@@ -1,4 +1,4 @@
-import { Button, Listbox, ListboxItem } from "@heroui/react";
+import { Button } from "@heroui/react";
 import { signOut } from "next-auth/react";
 import { CiLogout } from "react-icons/ci";
 import Image from "next/image";
@@ -42,44 +42,32 @@ const DashboardLayoutSidebar = (props: PropTypes) => {
             height={40}
           />
         </Link>
-        <Listbox
-          items={sidebarItems}
-          variant="flat"
-          aria-label="Dashboard Menu"
-          className="gap-1 p-0"
-        >
-          {(item) => (
-            <ListboxItem
+        <nav className="flex flex-col gap-1">
+          {sidebarItems.map((item) => (
+            <Link
               key={item.key}
-              className={cn(
-                "my-0.5 h-10 rounded-lg px-3 text-sm font-medium text-default-600 transition-colors",
-                {
-                  "bg-danger-50 font-semibold text-danger-600": isActive(
-                    item.href,
-                  ),
-                  "hover:bg-default-100": !isActive(item.href),
-                },
-              )}
-              startContent={
-                <span
-                  className={cn("text-lg", {
-                    "text-danger-500": isActive(item.href),
-                    "text-default-400": !isActive(item.href),
-                  })}
-                >
-                  {item.icon}
-                </span>
-              }
-              textValue={item.label}
-              aria-labelledby={item.label}
-              aria-describedby={item.label}
-              as={Link}
               href={item.href}
+              className={cn(
+                "flex h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium transition-colors",
+                isActive(item.href)
+                  ? "bg-danger-50 font-semibold text-danger-600"
+                  : "text-default-600 hover:bg-default-100",
+              )}
             >
+              <span
+                className={cn(
+                  "text-lg",
+                  isActive(item.href)
+                    ? "text-danger-500"
+                    : "text-default-400",
+                )}
+              >
+                {item.icon}
+              </span>
               <span>{item.label}</span>
-            </ListboxItem>
-          )}
-        </Listbox>
+            </Link>
+          ))}
+        </nav>
       </div>
       <div className="px-1">
         <Button
