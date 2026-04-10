@@ -38,8 +38,8 @@ const LandingPageLayoutNavbar = () => {
   const router = useRouter();
   const session = useSession();
   const user = session.data?.user as UserExtended | undefined;
-  const isAdmin = user?.role === "admin";
   const {
+    dataProfile,
     dataMoviesSearch,
     isLoadingMoviesSearch,
     isRefetchingMoviesSearch,
@@ -47,6 +47,7 @@ const LandingPageLayoutNavbar = () => {
     search,
     setSearch,
   } = useLandingPageLayoutNavbar();
+  const isAdmin = dataProfile?.role === "admin";
 
   return (
     <Navbar
@@ -187,34 +188,27 @@ const LandingPageLayoutNavbar = () => {
                   </DropdownItem>
                 </DropdownSection>
                 <DropdownSection showDivider>
-                  <DropdownItem
-                    key="reservations"
-                    href="/member/reservations"
-                    startContent={
-                      <FaTicket className="text-default-400" />
-                    }
-                  >
-                    My Reservations
-                  </DropdownItem>
-                  <DropdownItem
-                    key="profile"
-                    href="/member/profile"
-                    startContent={
-                      <FaUser className="text-default-400" />
-                    }
-                  >
-                    Profile
-                  </DropdownItem>
-                  <DropdownItem
-                    key="admin"
-                    href="/admin/movies"
-                    startContent={
-                      <FaGear className="text-default-400" />
-                    }
-                    className={cn({ hidden: !isAdmin })}
-                  >
-                    Admin Dashboard
-                  </DropdownItem>
+                  {isAdmin ? (
+                    <DropdownItem
+                      key="admin"
+                      href="/admin/movies"
+                      startContent={
+                        <FaGear className="text-default-400" />
+                      }
+                    >
+                      Admin Dashboard
+                    </DropdownItem>
+                  ) : (
+                    <DropdownItem
+                      key="reservations"
+                      href="/member/reservations"
+                      startContent={
+                        <FaTicket className="text-default-400" />
+                      }
+                    >
+                      My Reservations
+                    </DropdownItem>
+                  )}
                 </DropdownSection>
                 <DropdownSection>
                   <DropdownItem
@@ -306,33 +300,27 @@ const LandingPageLayoutNavbar = () => {
                 </p>
                 <p className="text-xs text-default-400">{user?.email}</p>
               </NavbarMenuItem>
-              <NavbarMenuItem>
-                <Link
-                  href="/member/reservations"
-                  className="flex items-center gap-3 rounded-lg px-3 py-3 text-base font-medium text-default-600 hover:bg-default-100"
-                >
-                  <FaTicket className="text-sm text-default-400" />
-                  My Reservations
-                </Link>
-              </NavbarMenuItem>
-              <NavbarMenuItem>
-                <Link
-                  href="/member/profile"
-                  className="flex items-center gap-3 rounded-lg px-3 py-3 text-base font-medium text-default-600 hover:bg-default-100"
-                >
-                  <FaUser className="text-sm text-default-400" />
-                  Profile
-                </Link>
-              </NavbarMenuItem>
-              <NavbarMenuItem className={cn({ hidden: !isAdmin })}>
-                <Link
-                  href="/admin/movies"
-                  className="flex items-center gap-3 rounded-lg px-3 py-3 text-base font-medium text-default-600 hover:bg-default-100"
-                >
-                  <FaGear className="text-sm text-default-400" />
-                  Admin
-                </Link>
-              </NavbarMenuItem>
+              {isAdmin ? (
+                <NavbarMenuItem>
+                  <Link
+                    href="/admin/movies"
+                    className="flex items-center gap-3 rounded-lg px-3 py-3 text-base font-medium text-default-600 hover:bg-default-100"
+                  >
+                    <FaGear className="text-sm text-default-400" />
+                    Admin Dashboard
+                  </Link>
+                </NavbarMenuItem>
+              ) : (
+                <NavbarMenuItem>
+                  <Link
+                    href="/member/reservations"
+                    className="flex items-center gap-3 rounded-lg px-3 py-3 text-base font-medium text-default-600 hover:bg-default-100"
+                  >
+                    <FaTicket className="text-sm text-default-400" />
+                    My Reservations
+                  </Link>
+                </NavbarMenuItem>
+              )}
               <NavbarMenuItem className="mt-4 px-3">
                 <Button
                   color="danger"
