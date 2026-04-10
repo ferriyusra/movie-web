@@ -13,12 +13,6 @@ const LandingPageLayoutFooter = () => {
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12">
           {/* Brand — wider */}
           <div className="flex flex-col gap-4 lg:col-span-4">
-            <Image
-              src="/images/general/logo.svg"
-              alt="logo"
-              width={110}
-              height={55}
-            />
             <p className="max-w-xs text-sm leading-relaxed text-gray-500">
               Your go-to platform for browsing movies, picking seats, and
               reserving tickets — all in one place.
