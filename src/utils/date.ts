@@ -43,4 +43,21 @@ const convertTime = (isoDate: string) => {
   return `${date} WIB`;
 };
 
-export { toDateStandard, toInputDate, convertTime };
+const formatShowtimeDate = (isoDate: string) => {
+  const date = new Date(isoDate);
+  const day = date.toLocaleDateString("id-ID", {
+    weekday: "long",
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    timeZone: "Asia/Jakarta",
+  });
+  const time = date.toLocaleTimeString("id-ID", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Asia/Jakarta",
+  });
+  return { day, time };
+};
+
+export { toDateStandard, toInputDate, convertTime, formatShowtimeDate };

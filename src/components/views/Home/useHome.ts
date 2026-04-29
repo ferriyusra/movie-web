@@ -6,7 +6,7 @@ import { IMovie } from "@/types/Movie";
 import { IGenre } from "@/types/Genre";
 import { IShowtime } from "@/types/Showtime";
 
-const DEFAULT_SHOWTIME_DATE = "2026-04-10";
+const DEFAULT_SHOWTIME_DATE = "2026-04-11";
 
 const useHome = () => {
   const { data: moviesData, isLoading: isLoadingMovies } = useQuery({

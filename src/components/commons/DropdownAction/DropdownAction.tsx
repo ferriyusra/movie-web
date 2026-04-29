@@ -21,33 +21,38 @@ const DropdownAction = (props: PropTypes) => {
   } = props;
 
   return (
-    <Dropdown>
-      <DropdownTrigger>
-        <Button isIconOnly size="sm" variant="light" radius="full">
-          <FaEllipsisVertical className="text-xs text-default-500" />
-        </Button>
-      </DropdownTrigger>
-      <DropdownMenu>
-        <DropdownItem
-          key="detail"
-          onPress={onPressButtonDetail}
-          startContent={<FaPen className="text-xs text-default-400" />}
+    <div onClick={(e) => e.stopPropagation()}>
+      <Dropdown>
+        <DropdownTrigger>
+          <Button isIconOnly size="sm" variant="light" radius="full">
+            <FaEllipsisVertical className="text-xs text-default-500" />
+          </Button>
+        </DropdownTrigger>
+        <DropdownMenu
+          onAction={(key) => {
+            if (key === "edit") onPressButtonDetail();
+            if (key === "delete") onPressButtonDelete?.();
+          }}
         >
-          Edit
-        </DropdownItem>
-        {!hideButtonDelete ? (
           <DropdownItem
-            key="delete"
-            onPress={onPressButtonDelete}
-            className="text-danger-500"
-            color="danger"
-            startContent={<FaTrash className="text-xs" />}
+            key="edit"
+            startContent={<FaPen className="text-xs text-default-400" />}
           >
-            Delete
+            Edit
           </DropdownItem>
-        ) : null}
-      </DropdownMenu>
-    </Dropdown>
+          {!hideButtonDelete ? (
+            <DropdownItem
+              key="delete"
+              className="text-danger-500"
+              color="danger"
+              startContent={<FaTrash className="text-xs" />}
+            >
+              Delete
+            </DropdownItem>
+          ) : null}
+        </DropdownMenu>
+      </Dropdown>
+    </div>
   );
 };
 

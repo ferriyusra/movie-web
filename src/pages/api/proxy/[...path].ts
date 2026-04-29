@@ -23,14 +23,18 @@ export default async function handler(
       headers["Authorization"] = req.headers.authorization as string;
     }
 
+    const hasBody =
+      req.method === "POST" ||
+      req.method === "PUT" ||
+      req.method === "PATCH";
+
     const fetchOptions: RequestInit = {
       method: req.method,
       headers,
+      ...(hasBody && req.body
+        ? { body: JSON.stringify(req.body) }
+        : {}),
     };
-
-    if (req.method !== "GET" && req.method !== "HEAD" && req.body) {
-      fetchOptions.body = JSON.stringify(req.body);
-    }
 
     const response = await fetch(url, fetchOptions);
     const data = await response.json();

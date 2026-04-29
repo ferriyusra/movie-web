@@ -6,6 +6,9 @@ const showtimeServices = {
   getShowtimes: (params?: string) =>
     instance.get(`${endpoint.SHOWTIMES}?${params || ""}`),
 
+  getAdminShowtimes: (params?: string) =>
+    instance.get(`${endpoint.ADMIN}/showtimes${params ? `?${params}` : ""}`),
+
   getShowtimeById: (id: string) =>
     instance.get(`${endpoint.SHOWTIMES}/${id}`),
 

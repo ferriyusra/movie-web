@@ -510,7 +510,7 @@ Admin — Create a showtime. `endTime` is auto-calculated as `startTime + durati
 {
   "movieId": "<movie-uuid>",
   "theaterId": "<theater-uuid>",
-  "startTime": "2026-04-10T14:00:00Z",
+  "startTime": "2026-04-11T14:00:00Z",
   "price": 50000
 }
 ```

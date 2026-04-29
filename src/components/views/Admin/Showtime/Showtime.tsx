@@ -1,12 +1,15 @@
 import { Key, useCallback } from "react";
-import { Chip, Input } from "@heroui/react";
+import { Button, Chip, DateRangePicker, Input } from "@heroui/react";
+import { FaMagnifyingGlass, FaPlus } from "react-icons/fa6";
 import DataTable from "@/components/ui/DataTable";
 import DropdownAction from "@/components/commons/DropdownAction";
 import { COLUMN_LISTS_SHOWTIME } from "./Showtime.constants";
 import useAdminShowtime from "./useShowtime";
 import AddShowtimeModal from "./AddShowtimeModal/AddShowtimeModal";
+import EditShowtimeModal from "./EditShowtimeModal/EditShowtimeModal";
 import DeleteShowtimeModal from "./DeleteShowtimeModal/DeleteShowtimeModal";
 import { formatCurrency } from "@/utils/currency";
+import { formatShowtimeDate } from "@/utils/date";
 
 const AdminShowtime = () => {
   const {
@@ -17,10 +20,15 @@ const AdminShowtime = () => {
     setSelectedId,
     addModalOpen,
     setAddModalOpen,
+    editModalOpen,
+    setEditModalOpen,
     deleteModalOpen,
     setDeleteModalOpen,
-    selectedDate,
-    setSelectedDate,
+    totalPages,
+    movieTitle,
+    dateRange,
+    handleMovieTitleChange,
+    handleDateRangeChange,
   } = useAdminShowtime();
 
   const renderCell = useCallback(
@@ -38,15 +46,25 @@ const AdminShowtime = () => {
               {(item.theaterName as string) || "-"}
             </p>
           );
-        case "startTime":
+        case "startTime": {
+          const start = formatShowtimeDate(item.startTime as string);
+          const end = formatShowtimeDate(item.endTime as string);
+          const sameDay = start.day === end.day;
           return (
-            <p className="text-sm">
-              {new Date(item.startTime as string).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-            </p>
+            <div className="flex flex-col gap-0.5 text-sm">
+              <span className="font-medium text-default-700">{start.day}</span>
+              {sameDay ? (
+                <span className="text-default-500">
+                  {start.time} – {end.time}
+                </span>
+              ) : (
+                <span className="text-default-500">
+                  {start.time} – {end.day} · {end.time}
+                </span>
+              )}
+            </div>
           );
+        }
         case "price":
           return (
             <p className="text-sm font-medium">
@@ -68,12 +86,14 @@ const AdminShowtime = () => {
         case "actions":
           return (
             <DropdownAction
-              onPressButtonDetail={() => {}}
+              onPressButtonDetail={() => {
+                setSelectedId(item.id as string);
+                setEditModalOpen(true);
+              }}
               onPressButtonDelete={() => {
                 setSelectedId(item.id as string);
                 setDeleteModalOpen(true);
               }}
-              hideButtonDelete={false}
             />
           );
         default:
@@ -85,32 +105,54 @@ const AdminShowtime = () => {
 
   return (
     <section>
-      <div className="mb-4">
-        <Input
-          type="date"
-          variant="bordered"
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-1 flex-wrap items-center gap-3">
+          <Input
+            size="sm"
+            variant="bordered"
+            placeholder="Search movie..."
+            value={movieTitle}
+            onChange={handleMovieTitleChange}
+            startContent={<FaMagnifyingGlass className="text-xs text-default-400" />}
+            classNames={{ inputWrapper: "h-9" }}
+            className="w-full sm:max-w-[220px]"
+          />
+          <DateRangePicker
+            size="sm"
+            variant="bordered"
+            value={dateRange}
+            onChange={handleDateRangeChange}
+            className="w-full sm:max-w-[280px]"
+          />
+        </div>
+        <Button
+          color="danger"
           size="sm"
-          value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
-          className="max-w-[180px]"
-          label="Date"
-        />
+          onPress={() => setAddModalOpen(true)}
+          startContent={<FaPlus className="text-xs" />}
+          className="w-full font-medium sm:w-auto"
+        >
+          Add Showtime
+        </Button>
       </div>
       <DataTable
-        buttonTopContentLabel="Add Showtime"
-        onClickButtonTopContent={() => setAddModalOpen(true)}
         columns={COLUMN_LISTS_SHOWTIME}
         data={dataShowtimes || []}
-        emptyContent="No showtimes found for this date"
+        emptyContent="No showtimes found"
         isLoading={isLoadingShowtimes}
         renderCell={renderCell}
-        totalPages={1}
+        totalPages={totalPages}
         showSearch={false}
-        showLimit={false}
       />
       <AddShowtimeModal
         isOpen={addModalOpen}
         onClose={() => setAddModalOpen(false)}
+        refetchShowtimes={refetchShowtimes}
+      />
+      <EditShowtimeModal
+        isOpen={editModalOpen}
+        onClose={() => setEditModalOpen(false)}
+        showtimeId={selectedId}
         refetchShowtimes={refetchShowtimes}
       />
       <DeleteShowtimeModal

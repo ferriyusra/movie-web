@@ -9,7 +9,7 @@ import { IMovie } from "@/types/Movie";
 const useMovieDetail = () => {
   const router = useRouter();
   const { id } = router.query;
-  const [selectedDate, setSelectedDate] = useState("2026-04-10");
+  const [selectedDate, setSelectedDate] = useState("2026-04-11");
 
   const { data: dataMovie, isLoading: isLoadingMovie } = useQuery({
     queryKey: ["Movie", id],
